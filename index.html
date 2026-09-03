@@ -464,14 +464,15 @@
             const data =
                 await response.json();
 
-            if (!response.ok || !data.authenticated) {
+         if (!response.ok || !data.authenticated) {
 
-                loginError.textContent =
-                    "Incorrect password or secret link.";
+    loginError.textContent =
+        data.error || "Login failed.";
 
-                return;
-            }
+    console.log("Login response:", data);
 
+    return;
+}
             // Keep token only in memory.
 
             sessionToken = data.token;
