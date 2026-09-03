@@ -464,16 +464,12 @@
             const data =
                 await response.json();
 
-         if (!response.ok || !data.authenticated) {
-
+   if (!response.ok || !data.authenticated) {
     loginError.textContent =
-        data.error || "Login failed.";
-
+        JSON.stringify(data);
     console.log("Login response:", data);
-
     return;
-}
-            // Keep token only in memory.
+}          // Keep token only in memory.
 
             sessionToken = data.token;
 
