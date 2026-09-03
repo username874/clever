@@ -1,136 +1,293 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>YouTube Player</title>
+    <title>YouTube Player</title>
 
-<style>
-    * {
-        box-sizing: border-box;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    body {
-        margin: 0;
-        min-height: 100vh;
-        background: #111;
-        color: white;
-        font-family: Arial, sans-serif;
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+        }
 
-        display: flex;
-        justify-content: center;
-    }
+        main {
+            width: min(1000px, 95%);
+            padding-top: 50px;
+        }
 
-    main {
-        width: min(1000px, 95%);
-        padding-top: 50px;
-    }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-    h1 {
-        text-align: center;
-        margin-bottom: 30px;
-    }
+        .input-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
 
-    .input-area {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 15px;
-    }
+        input {
+            flex: 1;
+            padding: 14px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+        }
 
-    input {
-        flex: 1;
-        padding: 14px;
-        font-size: 16px;
+        button {
+            padding: 14px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
 
-        border: none;
-        border-radius: 8px;
-        outline: none;
-    }
+        button:hover {
+            opacity: 0.85;
+        }
 
-    button {
-        padding: 14px 25px;
-        font-size: 16px;
+        #error {
+            color: #ff5555;
+            min-height: 20px;
+        }
 
-        border: none;
-        border-radius: 8px;
+        .player-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: black;
+            margin-top: 15px;
+        }
 
-        cursor: pointer;
-    }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
-    button:hover {
-        opacity: 0.85;
-    }
+        /* -------------------------
+           PRIVATE CHAT
+        ------------------------- */
 
-    #error {
-        color: #ff5555;
-        min-height: 20px;
-    }
+        #privateArea {
+            display: none;
+            margin-top: 40px;
+            padding-bottom: 50px;
+        }
 
-    .player-container {
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        background: black;
-        margin-top: 15px;
-    }
+        #loginBox {
+            max-width: 450px;
+            margin: 40px auto;
+            background: #1c1c1c;
+            padding: 25px;
+            border-radius: 12px;
+        }
 
-    iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
-</style>
-```
+        #loginBox h2 {
+            margin-top: 0;
+            text-align: center;
+        }
 
+        #passwordInput {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        #loginButton {
+            width: 100%;
+        }
+
+        #loginError {
+            color: #ff5555;
+            min-height: 20px;
+            text-align: center;
+        }
+
+        #chatBox {
+            display: none;
+        }
+
+        #messages {
+            height: 400px;
+            overflow-y: auto;
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            margin-bottom: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .username {
+            font-weight: bold;
+        }
+
+        .message-time {
+            color: #777;
+            font-size: 12px;
+            margin-left: 6px;
+        }
+
+        #chatInputArea {
+            display: flex;
+            gap: 10px;
+        }
+
+        #usernameInput {
+            flex: 0 0 180px;
+        }
+
+        #messageInput {
+            flex: 1;
+        }
+
+        #sendButton {
+            flex: 0 0 auto;
+        }
+
+        #chatError {
+            color: #ff5555;
+            min-height: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
 <main>
 
-```
-<h1>YouTube Player</h1>
+    <!-- NORMAL YOUTUBE PLAYER -->
 
-<div class="input-area">
+    <h1>YouTube Player</h1>
 
-    <input
-        id="urlInput"
-        type="text"
-        placeholder="Paste a YouTube URL..."
-        autocomplete="off"
-    >
+    <div class="input-area">
 
-    <button id="playButton">
-        Play
-    </button>
+        <input
+            id="urlInput"
+            type="text"
+            placeholder="Paste a YouTube URL..."
+            autocomplete="off"
+        >
 
-</div>
+        <button id="playButton">
+            Play
+        </button>
 
-<p id="error"></p>
+    </div>
 
-<div class="player-container">
+    <p id="error"></p>
 
-    <iframe
-        id="player"
-        src=""
-        allow="autoplay; encrypted-media; picture-in-picture"
-        allowfullscreen>
-    </iframe>
+    <div class="player-container">
 
-</div>
-```
+        <iframe
+            id="player"
+            src=""
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+
+    </div>
+
+
+    <!-- PRIVATE AREA -->
+
+    <div id="privateArea">
+
+        <!-- PASSWORD SCREEN -->
+
+        <div id="loginBox">
+
+            <h2>Private Chat</h2>
+
+            <input
+                id="passwordInput"
+                type="password"
+                placeholder="Enter password..."
+                autocomplete="off"
+            >
+
+            <button id="loginButton">
+                Enter
+            </button>
+
+            <p id="loginError"></p>
+
+        </div>
+
+
+        <!-- CHAT -->
+
+        <div id="chatBox">
+
+            <h2>Private Chat</h2>
+
+            <div id="messages"></div>
+
+            <div id="chatInputArea">
+
+                <input
+                    id="usernameInput"
+                    type="text"
+                    placeholder="Username"
+                    maxlength="32"
+                    autocomplete="off"
+                >
+
+                <input
+                    id="messageInput"
+                    type="text"
+                    placeholder="Message..."
+                    maxlength="500"
+                    autocomplete="off"
+                >
+
+                <button id="sendButton">
+                    Send
+                </button>
+
+            </div>
+
+            <p id="chatError"></p>
+
+        </div>
+
+    </div>
 
 </main>
 
+
 <script>
+
+    // ==========================================
+    // SUPABASE
+    // ==========================================
+
+    const SUPABASE_FUNCTION_URL =
+        "https://ydycfpjdurgnctazelmy.supabase.co/functions/v1/chat-auth";
+
+
+    // ==========================================
+    // YOUTUBE PLAYER
+    // ==========================================
 
     const input = document.getElementById("urlInput");
     const button = document.getElementById("playButton");
     const player = document.getElementById("player");
     const error = document.getElementById("error");
-
 
     function getYouTubeID(url) {
 
@@ -138,34 +295,16 @@
 
             const parsed = new URL(url);
 
-            /*
-             * Normal YouTube URL:
-             * https://www.youtube.com/watch?v=VIDEO_ID
-             */
-
             if (
                 parsed.hostname === "youtube.com" ||
                 parsed.hostname === "www.youtube.com"
             ) {
-
                 return parsed.searchParams.get("v");
-
             }
 
-
-            /*
-             * Short YouTube URL:
-             * https://youtu.be/VIDEO_ID
-             */
-
-            if (
-                parsed.hostname === "youtu.be"
-            ) {
-
+            if (parsed.hostname === "youtu.be") {
                 return parsed.pathname.substring(1);
-
             }
-
 
             return null;
 
@@ -174,9 +313,7 @@
             return null;
 
         }
-
     }
-
 
     function playVideo() {
 
@@ -186,43 +323,450 @@
 
         const videoID = getYouTubeID(url);
 
-
         if (!videoID) {
 
             error.textContent =
                 "Please enter a valid YouTube URL.";
 
             return;
-
         }
-
-
-        /*
-         * Load the YouTube embedded player.
-         */
 
         player.src =
             `https://www.youtube.com/embed/${videoID}?autoplay=1`;
-
     }
 
-
     button.addEventListener("click", playVideo);
-
-
-    /*
-     * Pressing Enter also plays the video.
-     */
 
     input.addEventListener("keydown", function(event) {
 
         if (event.key === "Enter") {
-
             playVideo();
-
         }
 
     });
+
+
+    // ==========================================
+    // PRIVATE CHAT
+    // ==========================================
+
+    const privateArea =
+        document.getElementById("privateArea");
+
+    const loginBox =
+        document.getElementById("loginBox");
+
+    const chatBox =
+        document.getElementById("chatBox");
+
+    const passwordInput =
+        document.getElementById("passwordInput");
+
+    const loginButton =
+        document.getElementById("loginButton");
+
+    const loginError =
+        document.getElementById("loginError");
+
+    const messages =
+        document.getElementById("messages");
+
+    const usernameInput =
+        document.getElementById("usernameInput");
+
+    const messageInput =
+        document.getElementById("messageInput");
+
+    const sendButton =
+        document.getElementById("sendButton");
+
+    const chatError =
+        document.getElementById("chatError");
+
+
+    // Session token stays ONLY in memory.
+    // It is never put into localStorage or cookies.
+
+    let sessionToken = null;
+
+
+    // ==========================================
+    // CHECK SECRET URL
+    // ==========================================
+
+    // The secret is stored after the #.
+    //
+    // Example:
+    //
+    // https://your-site.github.io/#YOUR_SECRET
+    //
+    // The fragment is not sent to web servers.
+
+    const secretPath =
+        decodeURIComponent(
+            window.location.hash.substring(1)
+        );
+
+
+    // Only show the private section if
+    // the URL contains a secret.
+
+    if (secretPath.length > 0) {
+
+        privateArea.style.display = "block";
+
+        passwordInput.focus();
+
+    }
+
+
+    // ==========================================
+    // LOGIN
+    // ==========================================
+
+    async function login() {
+
+        loginError.textContent = "";
+
+        const password =
+            passwordInput.value;
+
+        if (!password) {
+
+            loginError.textContent =
+                "Enter the password.";
+
+            return;
+        }
+
+        loginButton.disabled = true;
+        loginButton.textContent = "Checking...";
+
+        try {
+
+            const response = await fetch(
+                SUPABASE_FUNCTION_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        action: "login",
+                        password: password,
+                        secretPath: secretPath
+                    })
+                }
+            );
+
+            const data =
+                await response.json();
+
+            if (!response.ok || !data.authenticated) {
+
+                loginError.textContent =
+                    "Incorrect password or secret link.";
+
+                return;
+            }
+
+            // Keep token only in memory.
+
+            sessionToken = data.token;
+
+            loginBox.style.display = "none";
+            chatBox.style.display = "block";
+
+            await loadMessages();
+
+            usernameInput.focus();
+
+        } catch (err) {
+
+            loginError.textContent =
+                "Could not connect to the chat.";
+
+        } finally {
+
+            loginButton.disabled = false;
+            loginButton.textContent = "Enter";
+
+        }
+    }
+
+    loginButton.addEventListener(
+        "click",
+        login
+    );
+
+    passwordInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+                login();
+            }
+
+        }
+    );
+
+
+    // ==========================================
+    // LOAD MESSAGES
+    // ==========================================
+
+    async function loadMessages() {
+
+        if (!sessionToken) {
+            return;
+        }
+
+        chatError.textContent = "";
+
+        try {
+
+            const response = await fetch(
+                SUPABASE_FUNCTION_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization":
+                            `Bearer ${sessionToken}`
+                    },
+
+                    body: JSON.stringify({
+                        action: "messages"
+                    })
+                }
+            );
+
+            const data =
+                await response.json();
+
+            if (response.status === 401) {
+
+                sessionExpired();
+                return;
+            }
+
+            if (!response.ok) {
+
+                chatError.textContent =
+                    "Could not load messages.";
+
+                return;
+            }
+
+            messages.innerHTML = "";
+
+            for (const message of data) {
+                addMessage(message);
+            }
+
+            messages.scrollTop =
+                messages.scrollHeight;
+
+        } catch {
+
+            chatError.textContent =
+                "Could not connect to the chat.";
+
+        }
+    }
+
+
+    // ==========================================
+    // DISPLAY MESSAGE
+    // ==========================================
+
+    function addMessage(message) {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "message";
+
+        const username =
+            document.createElement("span");
+
+        username.className =
+            "username";
+
+        username.textContent =
+            message.username;
+
+        const text =
+            document.createElement("span");
+
+        text.textContent =
+            ": " + message.message;
+
+        const time =
+            document.createElement("span");
+
+        time.className =
+            "message-time";
+
+        const date =
+            new Date(message.created_at);
+
+        time.textContent =
+            date.toLocaleTimeString();
+
+        div.appendChild(username);
+        div.appendChild(text);
+        div.appendChild(time);
+
+        messages.appendChild(div);
+    }
+
+
+    // ==========================================
+    // SEND MESSAGE
+    // ==========================================
+
+    async function sendMessage() {
+
+        chatError.textContent = "";
+
+        if (!sessionToken) {
+            return;
+        }
+
+        const username =
+            usernameInput.value.trim();
+
+        const message =
+            messageInput.value.trim();
+
+        if (!username) {
+
+            chatError.textContent =
+                "Enter a username.";
+
+            return;
+        }
+
+        if (!message) {
+            return;
+        }
+
+        sendButton.disabled = true;
+
+        try {
+
+            const response = await fetch(
+                SUPABASE_FUNCTION_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization":
+                            `Bearer ${sessionToken}`
+                    },
+
+                    body: JSON.stringify({
+                        action: "send",
+                        username: username,
+                        message: message
+                    })
+                }
+            );
+
+            const data =
+                await response.json();
+
+            if (response.status === 401) {
+
+                sessionExpired();
+                return;
+            }
+
+            if (!response.ok || !data.sent) {
+
+                chatError.textContent =
+                    "Could not send message.";
+
+                return;
+            }
+
+            messageInput.value = "";
+
+            await loadMessages();
+
+            messageInput.focus();
+
+        } catch {
+
+            chatError.textContent =
+                "Could not connect to the chat.";
+
+        } finally {
+
+            sendButton.disabled = false;
+
+        }
+    }
+
+    sendButton.addEventListener(
+        "click",
+        sendMessage
+    );
+
+    messageInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+
+        }
+    );
+
+
+    // ==========================================
+    // SESSION EXPIRED
+    // ==========================================
+
+    function sessionExpired() {
+
+        sessionToken = null;
+
+        chatBox.style.display = "none";
+        loginBox.style.display = "block";
+
+        passwordInput.value = "";
+
+        loginError.textContent =
+            "Your session expired. Enter the password again.";
+
+        passwordInput.focus();
+    }
+
+
+    // ==========================================
+    // REFRESH MESSAGES
+    // ==========================================
+
+    // Check for new messages every 5 seconds
+    // while authenticated.
+
+    setInterval(
+        function() {
+
+            if (sessionToken) {
+                loadMessages();
+            }
+
+        },
+        5000
+    );
 
 </script>
 
