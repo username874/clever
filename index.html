@@ -58,6 +58,11 @@
             opacity: 0.85;
         }
 
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         #error {
             color: #ff5555;
             min-height: 20px;
@@ -128,7 +133,7 @@
         }
 
         .message {
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             overflow-wrap: anywhere;
         }
 
@@ -142,9 +147,19 @@
             margin-left: 6px;
         }
 
+        .message-image {
+            display: block;
+            max-width: min(500px, 100%);
+            max-height: 400px;
+            margin-top: 8px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
         #chatInputArea {
             display: flex;
             gap: 10px;
+            align-items: center;
         }
 
         #usernameInput {
@@ -155,13 +170,45 @@
             flex: 1;
         }
 
+        #imageInput {
+            flex: 0 0 auto;
+            max-width: 220px;
+            padding: 10px;
+            background: #1c1c1c;
+            color: white;
+            border-radius: 8px;
+        }
+
         #sendButton {
             flex: 0 0 auto;
+        }
+
+        #uploadStatus {
+            color: #aaa;
+            min-height: 20px;
+            margin: 8px 0;
+            font-size: 14px;
         }
 
         #chatError {
             color: #ff5555;
             min-height: 20px;
+        }
+
+        @media (max-width: 750px) {
+
+            #chatInputArea {
+                flex-wrap: wrap;
+            }
+
+            #usernameInput,
+            #messageInput,
+            #imageInput,
+            #sendButton {
+                flex: 1 1 100%;
+                max-width: none;
+            }
+
         }
     </style>
 </head>
@@ -255,11 +302,19 @@
                     autocomplete="off"
                 >
 
+                <input
+                    id="imageInput"
+                    type="file"
+                    accept="image/jpeg,image/png,image/gif,image/webp"
+                >
+
                 <button id="sendButton">
                     Send
                 </button>
 
             </div>
+
+            <div id="uploadStatus"></div>
 
             <p id="chatError"></p>
 
@@ -284,10 +339,18 @@
     // YOUTUBE PLAYER
     // ==========================================
 
-    const input = document.getElementById("urlInput");
-    const button = document.getElementById("playButton");
-    const player = document.getElementById("player");
-    const error = document.getElementById("error");
+    const input =
+        document.getElementById("urlInput");
+
+    const button =
+        document.getElementById("playButton");
+
+    const player =
+        document.getElementById("player");
+
+    const error =
+        document.getElementById("error");
+
 
     function getYouTubeID(url) {
 
@@ -315,13 +378,16 @@
         }
     }
 
+
     function playVideo() {
 
         error.textContent = "";
 
-        const url = input.value.trim();
+        const url =
+            input.value.trim();
 
-        const videoID = getYouTubeID(url);
+        const videoID =
+            getYouTubeID(url);
 
         if (!videoID) {
 
@@ -335,19 +401,27 @@
             `https://www.youtube.com/embed/${videoID}?autoplay=1`;
     }
 
-    button.addEventListener("click", playVideo);
 
-    input.addEventListener("keydown", function(event) {
+    button.addEventListener(
+        "click",
+        playVideo
+    );
 
-        if (event.key === "Enter") {
-            playVideo();
+
+    input.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+                playVideo();
+            }
+
         }
-
-    });
+    );
 
 
     // ==========================================
-    // PRIVATE CHAT
+    // PRIVATE CHAT ELEMENTS
     // ==========================================
 
     const privateArea =
@@ -377,15 +451,20 @@
     const messageInput =
         document.getElementById("messageInput");
 
+    const imageInput =
+        document.getElementById("imageInput");
+
     const sendButton =
         document.getElementById("sendButton");
+
+    const uploadStatus =
+        document.getElementById("uploadStatus");
 
     const chatError =
         document.getElementById("chatError");
 
 
     // Session token stays ONLY in memory.
-    // It is never put into localStorage or cookies.
 
     let sessionToken = null;
 
@@ -394,26 +473,16 @@
     // CHECK SECRET URL
     // ==========================================
 
-    // The secret is stored after the #.
-    //
-    // Example:
-    //
-    // https://your-site.github.io/#YOUR_SECRET
-    //
-    // The fragment is not sent to web servers.
-
     const secretPath =
         decodeURIComponent(
             window.location.hash.substring(1)
         );
 
 
-    // Only show the private section if
-    // the URL contains a secret.
-
     if (secretPath.length > 0) {
 
-        privateArea.style.display = "block";
+        privateArea.style.display =
+            "block";
 
         passwordInput.focus();
 
@@ -444,37 +513,55 @@
 
         try {
 
-            const response = await fetch(
-                SUPABASE_FUNCTION_URL,
-                {
-                    method: "POST",
+            const response =
+                await fetch(
+                    SUPABASE_FUNCTION_URL,
+                    {
+                        method: "POST",
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
 
-                    body: JSON.stringify({
-                        action: "login",
-                        password: password,
-                        secretPath: secretPath
-                    })
-                }
-            );
+                        body: JSON.stringify({
+                            action: "login",
+                            password: password,
+                            secretPath: secretPath
+                        })
+                    }
+                );
 
             const data =
                 await response.json();
 
-   if (!response.ok || !data.authenticated) {
-    loginError.textContent =
-        JSON.stringify(data);
-    console.log("Login response:", data);
-    return;
-}          // Keep token only in memory.
+            if (
+                !response.ok ||
+                !data.authenticated
+            ) {
 
-            sessionToken = data.token;
+                loginError.textContent =
+                    data.error ||
+                    "Login failed.";
 
-            loginBox.style.display = "none";
-            chatBox.style.display = "block";
+                console.log(
+                    "Login response:",
+                    data
+                );
+
+                return;
+            }
+
+            // Keep token only in memory.
+
+            sessionToken =
+                data.token;
+
+            loginBox.style.display =
+                "none";
+
+            chatBox.style.display =
+                "block";
 
             await loadMessages();
 
@@ -482,21 +569,28 @@
 
         } catch (err) {
 
+            console.error(err);
+
             loginError.textContent =
                 "Could not connect to the chat.";
 
         } finally {
 
-            loginButton.disabled = false;
-            loginButton.textContent = "Enter";
+            loginButton.disabled =
+                false;
+
+            loginButton.textContent =
+                "Enter";
 
         }
     }
+
 
     loginButton.addEventListener(
         "click",
         login
     );
+
 
     passwordInput.addEventListener(
         "keydown",
@@ -524,22 +618,25 @@
 
         try {
 
-            const response = await fetch(
-                SUPABASE_FUNCTION_URL,
-                {
-                    method: "POST",
+            const response =
+                await fetch(
+                    SUPABASE_FUNCTION_URL,
+                    {
+                        method: "POST",
 
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization":
-                            `Bearer ${sessionToken}`
-                    },
+                        headers: {
+                            "Content-Type":
+                                "application/json",
 
-                    body: JSON.stringify({
-                        action: "messages"
-                    })
-                }
-            );
+                            "Authorization":
+                                `Bearer ${sessionToken}`
+                        },
+
+                        body: JSON.stringify({
+                            action: "messages"
+                        })
+                    }
+                );
 
             const data =
                 await response.json();
@@ -547,12 +644,14 @@
             if (response.status === 401) {
 
                 sessionExpired();
+
                 return;
             }
 
             if (!response.ok) {
 
                 chatError.textContent =
+                    data.error ||
                     "Could not load messages.";
 
                 return;
@@ -561,13 +660,17 @@
             messages.innerHTML = "";
 
             for (const message of data) {
+
                 addMessage(message);
+
             }
 
             messages.scrollTop =
                 messages.scrollHeight;
 
-        } catch {
+        } catch (err) {
+
+            console.error(err);
 
             chatError.textContent =
                 "Could not connect to the chat.";
@@ -585,7 +688,11 @@
         const div =
             document.createElement("div");
 
-        div.className = "message";
+        div.className =
+            "message";
+
+
+        // Username
 
         const username =
             document.createElement("span");
@@ -596,11 +703,21 @@
         username.textContent =
             message.username;
 
+
+        // Text
+
         const text =
             document.createElement("span");
 
-        text.textContent =
-            ": " + message.message;
+        if (message.message) {
+
+            text.textContent =
+                ": " + message.message;
+
+        }
+
+
+        // Time
 
         const time =
             document.createElement("span");
@@ -609,16 +726,120 @@
             "message-time";
 
         const date =
-            new Date(message.created_at);
+            new Date(
+                message.created_at
+            );
 
         time.textContent =
             date.toLocaleTimeString();
 
+
         div.appendChild(username);
-        div.appendChild(text);
+
+        if (message.message) {
+            div.appendChild(text);
+        }
+
         div.appendChild(time);
 
+
+        // Image
+
+        if (message.image_url) {
+
+            const image =
+                document.createElement("img");
+
+            image.className =
+                "message-image";
+
+            image.src =
+                message.image_url;
+
+            image.alt =
+                "Chat image";
+
+            image.loading =
+                "lazy";
+
+            div.appendChild(image);
+
+        }
+
+
         messages.appendChild(div);
+    }
+
+
+    // ==========================================
+    // UPLOAD IMAGE
+    // ==========================================
+
+    async function uploadImage(file) {
+
+        if (!sessionToken) {
+            throw new Error(
+                "Not authenticated."
+            );
+        }
+
+        const formData =
+            new FormData();
+
+        formData.append(
+            "action",
+            "upload"
+        );
+
+        formData.append(
+            "file",
+            file
+        );
+
+
+        const response =
+            await fetch(
+                SUPABASE_FUNCTION_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Authorization":
+                            `Bearer ${sessionToken}`
+                    },
+
+                    body: formData
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (response.status === 401) {
+
+            sessionExpired();
+
+            throw new Error(
+                "Session expired."
+            );
+        }
+
+
+        if (
+            !response.ok ||
+            !data.uploaded
+        ) {
+
+            throw new Error(
+                data.error ||
+                "Could not upload image."
+            );
+        }
+
+
+        return data.path;
     }
 
 
@@ -629,16 +850,22 @@
     async function sendMessage() {
 
         chatError.textContent = "";
+        uploadStatus.textContent = "";
 
         if (!sessionToken) {
             return;
         }
+
 
         const username =
             usernameInput.value.trim();
 
         const message =
             messageInput.value.trim();
+
+        const file =
+            imageInput.files[0] || null;
+
 
         if (!username) {
 
@@ -648,72 +875,133 @@
             return;
         }
 
-        if (!message) {
+
+        if (
+            !message &&
+            !file
+        ) {
+
+            chatError.textContent =
+                "Enter a message or choose an image.";
+
             return;
         }
 
-        sendButton.disabled = true;
+
+        sendButton.disabled =
+            true;
+
 
         try {
 
-            const response = await fetch(
-                SUPABASE_FUNCTION_URL,
-                {
-                    method: "POST",
+            let imagePath =
+                null;
 
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization":
-                            `Bearer ${sessionToken}`
-                    },
 
-                    body: JSON.stringify({
-                        action: "send",
-                        username: username,
-                        message: message
-                    })
-                }
-            );
+            // Upload image first
+
+            if (file) {
+
+                uploadStatus.textContent =
+                    "Uploading image...";
+
+                imagePath =
+                    await uploadImage(file);
+
+                uploadStatus.textContent =
+                    "Image uploaded.";
+
+            }
+
+
+            // Send message + image path
+
+            const response =
+                await fetch(
+                    SUPABASE_FUNCTION_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json",
+
+                            "Authorization":
+                                `Bearer ${sessionToken}`
+                        },
+
+                        body: JSON.stringify({
+                            action: "send",
+                            username: username,
+                            message: message,
+                            imagePath: imagePath
+                        })
+                    }
+                );
+
 
             const data =
                 await response.json();
 
+
             if (response.status === 401) {
 
                 sessionExpired();
+
                 return;
             }
 
-            if (!response.ok || !data.sent) {
+
+            if (
+                !response.ok ||
+                !data.sent
+            ) {
 
                 chatError.textContent =
+                    data.error ||
                     "Could not send message.";
 
                 return;
             }
 
+
+            // Clear inputs
+
             messageInput.value = "";
+
+            imageInput.value = "";
+
+            uploadStatus.textContent = "";
+
+
+            // Refresh chat
 
             await loadMessages();
 
             messageInput.focus();
 
-        } catch {
+        } catch (err) {
+
+            console.error(err);
 
             chatError.textContent =
-                "Could not connect to the chat.";
+                err.message ||
+                "Could not send message.";
 
         } finally {
 
-            sendButton.disabled = false;
+            sendButton.disabled =
+                false;
 
         }
     }
+
 
     sendButton.addEventListener(
         "click",
         sendMessage
     );
+
 
     messageInput.addEventListener(
         "keydown",
@@ -733,10 +1021,14 @@
 
     function sessionExpired() {
 
-        sessionToken = null;
+        sessionToken =
+            null;
 
-        chatBox.style.display = "none";
-        loginBox.style.display = "block";
+        chatBox.style.display =
+            "none";
+
+        loginBox.style.display =
+            "block";
 
         passwordInput.value = "";
 
@@ -744,15 +1036,13 @@
             "Your session expired. Enter the password again.";
 
         passwordInput.focus();
+
     }
 
 
     // ==========================================
     // REFRESH MESSAGES
     // ==========================================
-
-    // Check for new messages every 5 seconds
-    // while authenticated.
 
     setInterval(
         function() {
