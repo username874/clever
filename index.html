@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>YouTube Player</title>
+    <title>LearnHub — Educational Resources</title>
 
     <style>
 
@@ -12,68 +12,358 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             min-height: 100vh;
-            background: #111;
-            color: white;
-            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+
+        /* =====================================
+           PUBLIC WEBSITE
+        ===================================== */
+
+        .site-header {
+            background: white;
+            border-bottom: 1px solid #e5e9f0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .header-inner {
+            width: min(1120px, 92%);
+            margin: auto;
+            height: 72px;
             display: flex;
-            justify-content: center;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        main {
-            width: min(1000px, 95%);
-            padding-top: 50px;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            text-decoration: none;
+            color: #172033;
+            font-weight: 750;
+            font-size: 20px;
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            display: grid;
+            place-items: center;
+            background: #315efb;
+            color: white;
+            font-size: 19px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav a {
+            color: #5c6678;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav a:hover {
+            color: #315efb;
+        }
+
+
+        /* =====================================
+           HERO
+        ===================================== */
+
+        .hero {
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef3ff 0%,
+                    #f8faff 55%,
+                    #edf8f5 100%
+                );
+            border-bottom: 1px solid #e5e9f0;
+        }
+
+        .hero-inner {
+            width: min(1120px, 92%);
+            margin: auto;
+            padding: 78px 0 72px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 55px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            background: white;
+            border: 1px solid #dce4f4;
+            color: #315efb;
+            border-radius: 999px;
+            padding: 7px 13px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(38px, 5vw, 62px);
+            line-height: 1.04;
+            letter-spacing: -2px;
+            max-width: 650px;
+        }
+
+        .hero p {
+            color: #5e697b;
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 590px;
+            margin: 22px 0 0;
+        }
+
+        .hero-card {
+            background: white;
+            border: 1px solid #e1e6ef;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow:
+                0 18px 45px rgba(32, 49, 84, 0.08);
+        }
+
+        .hero-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .hero-card-title {
+            font-size: 14px;
+            font-weight: 750;
+        }
+
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #35b979;
+        }
+
+        .mini-lines {
+            display: grid;
+            gap: 12px;
+        }
+
+        .mini-line {
+            height: 12px;
+            border-radius: 999px;
+            background: #edf0f5;
+        }
+
+        .mini-line.short {
+            width: 63%;
+        }
+
+        .mini-line.medium {
+            width: 81%;
+        }
+
+        .hero-stat {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #edf0f5;
+            display: flex;
+            justify-content: space-between;
+            color: #697386;
+            font-size: 13px;
+        }
+
+
+        /* =====================================
+           RESOURCES
+        ===================================== */
+
+        .section {
+            width: min(1120px, 92%);
+            margin: auto;
+            padding: 68px 0;
+        }
+
+        .section-heading {
+            margin-bottom: 28px;
+        }
+
+        .section-heading h2 {
+            margin: 0 0 8px;
+            font-size: 30px;
+            letter-spacing: -0.7px;
+        }
+
+        .section-heading p {
+            margin: 0;
+            color: #687386;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .resource-card {
+            background: white;
+            border: 1px solid #e1e6ef;
+            border-radius: 15px;
+            padding: 23px;
+            transition:
+                transform 0.18s ease,
+                box-shadow 0.18s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 12px 30px rgba(32, 49, 84, 0.08);
+        }
+
+        .resource-icon {
+            width: 43px;
+            height: 43px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: #eef3ff;
+            margin-bottom: 18px;
+            font-size: 20px;
+        }
+
+        .resource-card h3 {
+            margin: 0 0 8px;
+            font-size: 17px;
+        }
+
+        .resource-card p {
+            margin: 0;
+            color: #687386;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+
+        /* =====================================
+           YOUTUBE SECTION
+        ===================================== */
+
+        .media-section {
+            background: white;
+            border-top: 1px solid #e5e9f0;
+            border-bottom: 1px solid #e5e9f0;
+        }
+
+        .media-layout {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .media-info h2 {
+            margin: 0 0 12px;
+            font-size: 30px;
+        }
+
+        .media-info p {
+            color: #687386;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .youtube-box {
+            width: 100%;
         }
 
         .input-area {
             display: flex;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
-        input {
+        #urlInput {
             flex: 1;
-            padding: 14px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
+            min-width: 0;
+            padding: 14px 16px;
+            font-size: 15px;
+            border: 1px solid #d9dfe9;
+            border-radius: 9px;
             outline: none;
+            background: #fafbfc;
+            color: #172033;
         }
 
-        button {
-            padding: 14px 25px;
-            font-size: 16px;
+        #urlInput:focus {
+            border-color: #315efb;
+            background: white;
+        }
+
+        #playButton {
+            padding: 14px 22px;
+            background: #315efb;
+            color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 9px;
             cursor: pointer;
+            font-weight: 700;
         }
 
-        button:hover {
-            opacity: 0.85;
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        #playButton:hover {
+            background: #2449d7;
         }
 
         #error {
-            color: #ff5555;
+            color: #d14343;
             min-height: 20px;
+            font-size: 13px;
+            margin: 7px 0;
         }
 
         .player-container {
             width: 100%;
             aspect-ratio: 16 / 9;
-            background: black;
-            margin-top: 15px;
+            background: #101318;
+            margin-top: 8px;
+            border-radius: 13px;
+            overflow: hidden;
+            box-shadow:
+                0 12px 35px rgba(22, 31, 48, 0.13);
         }
 
         iframe {
@@ -84,41 +374,109 @@
 
 
         /* =====================================
+           FOOTER
+        ===================================== */
+
+        footer {
+            background: #172033;
+            color: #aeb8c8;
+        }
+
+        .footer-inner {
+            width: min(1120px, 92%);
+            margin: auto;
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-brand {
+            color: white;
+            font-weight: 700;
+        }
+
+        .footer-text {
+            font-size: 13px;
+        }
+
+
+        /* =====================================
            PRIVATE CHAT
         ===================================== */
 
         #privateArea {
             display: none;
-            margin-top: 40px;
-            padding-bottom: 50px;
+            min-height: 100vh;
+            padding: 50px 20px;
+            background: #f5f7fb;
+        }
+
+        #privateArea .private-inner {
+            width: min(950px, 100%);
+            margin: auto;
         }
 
         #loginBox {
             max-width: 450px;
-            margin: 40px auto;
-            background: #1c1c1c;
-            padding: 25px;
-            border-radius: 12px;
+            margin: 50px auto;
+            background: white;
+            padding: 32px;
+            border: 1px solid #e1e6ef;
+            border-radius: 16px;
+            box-shadow:
+                0 15px 40px rgba(32, 49, 84, 0.08);
         }
 
         #loginBox h2 {
-            margin-top: 0;
+            margin: 0 0 8px;
             text-align: center;
+            font-size: 25px;
+        }
+
+        .login-description {
+            color: #687386;
+            text-align: center;
+            font-size: 14px;
+            margin: 0 0 23px;
         }
 
         #passwordInput {
             width: 100%;
+            padding: 14px;
             margin-bottom: 10px;
+            border: 1px solid #d9dfe9;
+            border-radius: 9px;
+            outline: none;
+            background: #fafbfc;
+        }
+
+        #passwordInput:focus {
+            border-color: #315efb;
+            background: white;
         }
 
         #loginButton {
             width: 100%;
+            padding: 14px;
+            background: #315efb;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        #loginButton:hover {
+            background: #2449d7;
         }
 
         #loginError {
-            color: #ff5555;
+            color: #d14343;
             min-height: 20px;
             text-align: center;
+            font-size: 13px;
         }
 
         #chatBox {
@@ -126,6 +484,10 @@
         }
 
         .chat-header {
+            background: white;
+            border: 1px solid #e1e6ef;
+            border-radius: 13px;
+            padding: 16px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -133,26 +495,57 @@
             margin-bottom: 10px;
         }
 
-        .chat-header h2 {
+        .chat-title-area h2 {
             margin: 0;
+            font-size: 20px;
+        }
+
+        .chat-title-area span {
+            color: #687386;
+            font-size: 12px;
+        }
+
+        .chat-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        #backButton,
+        #clearButton {
+            padding: 9px 13px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        #backButton {
+            background: #eef1f6;
+            color: #344054;
+            border: 1px solid #dce1e9;
+        }
+
+        #backButton:hover {
+            background: #e4e8ef;
         }
 
         #clearButton {
-            padding: 9px 15px;
-            background: #3a1c1c;
-            color: white;
+            background: #fff0f0;
+            color: #b33a3a;
+            border: 1px solid #f0d0d0;
         }
 
         #clearButton:hover {
-            background: #542020;
+            background: #ffe3e3;
         }
 
         #messages {
             height: 400px;
             overflow-y: auto;
-            background: #1a1a1a;
-            border-radius: 10px;
-            padding: 15px;
+            background: white;
+            border: 1px solid #e1e6ef;
+            border-radius: 13px;
+            padding: 18px;
             margin-bottom: 10px;
         }
 
@@ -162,12 +555,13 @@
         }
 
         .username {
-            font-weight: bold;
+            font-weight: 700;
+            color: #315efb;
         }
 
         .message-time {
-            color: #777;
-            font-size: 12px;
+            color: #8992a2;
+            font-size: 11px;
             margin-left: 6px;
         }
 
@@ -182,41 +576,73 @@
 
         #chatInputArea {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
         }
 
+        #usernameInput,
+        #messageInput {
+            padding: 13px;
+            border: 1px solid #d9dfe9;
+            border-radius: 9px;
+            outline: none;
+            background: white;
+        }
+
         #usernameInput {
-            flex: 0 0 180px;
+            flex: 0 0 160px;
         }
 
         #messageInput {
             flex: 1;
         }
 
+        #usernameInput:focus,
+        #messageInput:focus {
+            border-color: #315efb;
+        }
+
         #imageInput {
             flex: 0 0 auto;
-            max-width: 220px;
-            padding: 10px;
-            background: #1c1c1c;
-            color: white;
+            max-width: 210px;
+            padding: 9px;
+            background: white;
+            color: #4e596b;
+            border: 1px solid #d9dfe9;
             border-radius: 8px;
         }
 
         #sendButton {
             flex: 0 0 auto;
+            padding: 13px 18px;
+            background: #315efb;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        #sendButton:hover {
+            background: #2449d7;
         }
 
         #uploadStatus {
-            color: #aaa;
+            color: #687386;
             min-height: 20px;
             margin: 8px 0;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         #chatError {
-            color: #ff5555;
+            color: #d14343;
             min-height: 20px;
+            font-size: 13px;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
 
@@ -224,7 +650,63 @@
            MOBILE
         ===================================== */
 
-        @media (max-width: 750px) {
+        @media (max-width: 850px) {
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .resource-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .media-layout {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .header-inner {
+                height: 62px;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .hero-inner {
+                padding: 55px 0;
+            }
+
+            .hero h1 {
+                letter-spacing: -1.5px;
+            }
+
+            .section {
+                padding: 50px 0;
+            }
+
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .input-area {
+                flex-direction: column;
+            }
+
+            #playButton {
+                width: 100%;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
 
             #chatInputArea {
                 flex-wrap: wrap;
@@ -240,6 +722,16 @@
 
             .chat-header {
                 align-items: stretch;
+                flex-direction: column;
+            }
+
+            .chat-actions {
+                width: 100%;
+            }
+
+            #backButton,
+            #clearButton {
+                flex: 1;
             }
 
         }
@@ -250,54 +742,303 @@
 
 <body>
 
-<main>
+<!-- =========================================
+     NORMAL PUBLIC WEBSITE
+========================================== -->
 
-    <!-- =====================================
-         YOUTUBE
-    ====================================== -->
+<div id="publicSite">
 
-    <h1>YouTube Player</h1>
+    <header class="site-header">
 
-    <div class="input-area">
+        <div class="header-inner">
 
-        <input
-            id="urlInput"
-            type="text"
-            placeholder="Paste a YouTube URL..."
-            autocomplete="off"
-        >
+            <a href="#" class="brand">
+                <span class="brand-icon">L</span>
+                LearnHub
+            </a>
 
-        <button id="playButton">
-            Play
-        </button>
+            <nav class="nav">
+                <a href="#resources">Resources</a>
+                <a href="#media">Learning Videos</a>
+                <a href="#about">About</a>
+            </nav>
 
-    </div>
+        </div>
 
-    <p id="error"></p>
-
-    <div class="player-container">
-
-        <iframe
-            id="player"
-            src=""
-            allow="autoplay; encrypted-media; picture-in-picture"
-            allowfullscreen>
-        </iframe>
-
-    </div>
+    </header>
 
 
-    <!-- =====================================
-         PRIVATE CHAT
-    ====================================== -->
+    <!-- HERO -->
 
-    <div id="privateArea">
+    <section class="hero">
+
+        <div class="hero-inner">
+
+            <div>
+
+                <span class="eyebrow">
+                    EDUCATION • EXPLORATION • LEARNING
+                </span>
+
+                <h1>
+                    Learn something
+                    new every day.
+                </h1>
+
+                <p>
+                    Explore educational resources, discover
+                    interesting ideas, and use interactive
+                    media to make learning more engaging.
+                </p>
+
+            </div>
+
+
+            <div class="hero-card">
+
+                <div class="hero-card-top">
+
+                    <span class="hero-card-title">
+                        Featured learning resource
+                    </span>
+
+                    <span class="status-dot"></span>
+
+                </div>
+
+                <div class="mini-lines">
+
+                    <div class="mini-line"></div>
+
+                    <div class="mini-line medium"></div>
+
+                    <div class="mini-line"></div>
+
+                    <div class="mini-line short"></div>
+
+                </div>
+
+                <div class="hero-stat">
+
+                    <span>
+                        Independent learning
+                    </span>
+
+                    <span>
+                        Explore →
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESOURCES -->
+
+    <section
+        class="section"
+        id="resources">
+
+        <div class="section-heading">
+
+            <h2>
+                Explore learning topics
+            </h2>
+
+            <p>
+                Browse a variety of subjects and areas
+                of knowledge.
+            </p>
+
+        </div>
+
+
+        <div class="resource-grid">
+
+            <article class="resource-card">
+
+                <div class="resource-icon">
+                    🔬
+                </div>
+
+                <h3>
+                    Science
+                </h3>
+
+                <p>
+                    Explore physics, chemistry, biology,
+                    space, and the natural world.
+                </p>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-icon">
+                    💻
+                </div>
+
+                <h3>
+                    Technology
+                </h3>
+
+                <p>
+                    Learn about computers, programming,
+                    engineering, and modern technology.
+                </p>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-icon">
+                    🌎
+                </div>
+
+                <h3>
+                    Geography
+                </h3>
+
+                <p>
+                    Discover places, environments,
+                    cultures, and how our world works.
+                </p>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-icon">
+                    📚
+                </div>
+
+                <h3>
+                    Study Skills
+                </h3>
+
+                <p>
+                    Find ideas for studying, research,
+                    organization, and independent learning.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- YOUTUBE -->
+
+    <section
+        class="media-section"
+        id="media">
+
+        <div class="section">
+
+            <div class="media-layout">
+
+                <div class="media-info">
+
+                    <h2>
+                        Learning videos
+                    </h2>
+
+                    <p>
+                        Use the video player to watch
+                        educational content and explore
+                        topics that interest you.
+                    </p>
+
+                </div>
+
+
+                <div class="youtube-box">
+
+                    <div class="input-area">
+
+                        <input
+                            id="urlInput"
+                            type="text"
+                            placeholder="Paste a YouTube URL..."
+                            autocomplete="off"
+                        >
+
+                        <button id="playButton">
+                            Play
+                        </button>
+
+                    </div>
+
+                    <p id="error"></p>
+
+                    <div class="player-container">
+
+                        <iframe
+                            id="player"
+                            src=""
+                            allow="autoplay; encrypted-media; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer id="about">
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+                LearnHub
+            </div>
+
+            <div class="footer-text">
+                Educational resources for curious minds.
+            </div>
+
+        </div>
+
+    </footer>
+
+</div>
+
+
+<!-- =========================================
+     PRIVATE CHAT
+========================================== -->
+
+<div id="privateArea">
+
+    <div class="private-inner">
 
         <!-- LOGIN -->
 
         <div id="loginBox">
 
-            <h2>Private Chat</h2>
+            <h2>
+                Private Area
+            </h2>
+
+            <p class="login-description">
+                Enter the password to continue.
+            </p>
 
             <input
                 id="passwordInput"
@@ -321,15 +1062,34 @@
 
             <div class="chat-header">
 
-                <h2>
-                    Private Chat
-                </h2>
+                <div class="chat-title-area">
 
-                <button
-                    id="clearButton"
-                    type="button">
-                    Clear Chat
-                </button>
+                    <h2>
+                        Private Chat
+                    </h2>
+
+                    <span>
+                        Shared conversation
+                    </span>
+
+                </div>
+
+
+                <div class="chat-actions">
+
+                    <button
+                        id="backButton"
+                        type="button">
+                        ← Back to Website
+                    </button>
+
+                    <button
+                        id="clearButton"
+                        type="button">
+                        Clear Chat
+                    </button>
+
+                </div>
 
             </div>
 
@@ -376,7 +1136,7 @@
 
     </div>
 
-</main>
+</div>
 
 
 <script>
@@ -390,6 +1150,14 @@
 
     const CLEAR_CHAT_FUNCTION_URL =
         "https://ydycfpjdurgnctazelmy.supabase.co/functions/v1/clear-chat";
+
+
+    // ==========================================
+    // PUBLIC WEBSITE
+    // ==========================================
+
+    const publicSite =
+        document.getElementById("publicSite");
 
 
     // ==========================================
@@ -539,12 +1307,13 @@
     const clearButton =
         document.getElementById("clearButton");
 
+    const backButton =
+        document.getElementById("backButton");
+
 
     let sessionToken =
         null;
 
-
-    // Track messages already shown.
 
     const displayedMessageIds =
         new Set();
@@ -562,12 +1331,76 @@
 
     if (secretPath.length > 0) {
 
+        publicSite.style.display =
+            "none";
+
         privateArea.style.display =
             "block";
 
         passwordInput.focus();
 
     }
+
+
+    // ==========================================
+    // BACK TO WEBSITE
+    // ==========================================
+
+    function backToWebsite() {
+
+        sessionToken =
+            null;
+
+        displayedMessageIds.clear();
+
+        messages.innerHTML =
+            "";
+
+        passwordInput.value =
+            "";
+
+        chatBox.style.display =
+            "none";
+
+        loginBox.style.display =
+            "block";
+
+        loginError.textContent =
+            "";
+
+        chatError.textContent =
+            "";
+
+        privateArea.style.display =
+            "none";
+
+        publicSite.style.display =
+            "block";
+
+        /*
+         * Remove the secret fragment from
+         * the URL.
+         */
+
+        history.replaceState(
+            null,
+            "",
+            window.location.pathname +
+            window.location.search
+        );
+
+        window.scrollTo(
+            0,
+            0
+        );
+
+    }
+
+
+    backButton.addEventListener(
+        "click",
+        backToWebsite
+    );
 
 
     // ==========================================
@@ -645,7 +1478,8 @@
 
             displayedMessageIds.clear();
 
-            messages.innerHTML = "";
+            messages.innerHTML =
+                "";
 
 
             loginBox.style.display =
@@ -1276,17 +2110,10 @@
             }
 
 
-            // Remove everything currently
-            // displayed.
-
             messages.innerHTML =
                 "";
 
             displayedMessageIds.clear();
-
-
-            // Make sure the chat is at the
-            // top/empty state.
 
             messages.scrollTop =
                 0;
