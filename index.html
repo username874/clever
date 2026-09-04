@@ -470,6 +470,14 @@
     let sessionToken = null;
 
 
+    // Keep track of messages already displayed.
+    // This prevents the chat from being rebuilt
+    // every time it refreshes.
+
+    const displayedMessageIds =
+        new Set();
+
+
     // ==========================================
     // CHECK SECRET URL
     // ==========================================
@@ -564,6 +572,14 @@
                 data.token;
 
 
+            // Clear any old message tracking
+            // from a previous session.
+
+            displayedMessageIds.clear();
+
+            messages.innerHTML = "";
+
+
             loginBox.style.display =
                 "none";
 
@@ -626,19 +642,6 @@
         chatError.textContent = "";
 
 
-        // Remember where the user was before
-        // refreshing the messages.
-
-        const wasAtBottom =
-            messages.scrollHeight -
-            messages.scrollTop -
-            messages.clientHeight <
-            50;
-
-        const oldScrollTop =
-            messages.scrollTop;
-
-
         try {
 
             const response =
@@ -684,31 +687,72 @@
             }
 
 
-            messages.innerHTML = "";
+            // Only add messages that haven't
+            // already been displayed.
+
+            let addedNewMessage = false;
 
 
             for (const message of data) {
 
-                addMessage(message);
+                /*
+                 * The backend currently needs to return
+                 * the message ID for this to work correctly.
+                 *
+                 * If an older backend response doesn't
+                 * contain an ID, use the created_at value
+                 * as a fallback.
+                 */
+
+                const messageId =
+                    message.id !== undefined &&
+                    message.id !== null
+                        ? String(message.id)
+                        : `${message.created_at}-${message.username}-${message.message}-${message.image_url || ""}`;
+
+
+                if (
+                    displayedMessageIds.has(
+                        messageId
+                    )
+                ) {
+                    continue;
+                }
+
+
+                displayedMessageIds.add(
+                    messageId
+                );
+
+
+                addMessage(
+                    message
+                );
+
+
+                addedNewMessage = true;
 
             }
 
 
-            // If the user was already at the bottom,
-            // keep them at the bottom.
+            // Only scroll when a genuinely new message
+            // was added AND the user was already near
+            // the bottom.
 
-            if (wasAtBottom) {
+            if (addedNewMessage) {
 
-                messages.scrollTop =
-                    messages.scrollHeight;
+                const distanceFromBottom =
+                    messages.scrollHeight -
+                    messages.scrollTop -
+                    messages.clientHeight;
 
-            } else {
 
-                // Otherwise keep their previous
-                // reading position.
+                if (distanceFromBottom < 100) {
 
-                messages.scrollTop =
-                    oldScrollTop;
+                    messages.scrollTop =
+                        messages.scrollHeight;
+
+                }
 
             }
 
@@ -1029,10 +1073,14 @@
             }
 
 
+            // Clear inputs.
+
             messageInput.value = "";
             imageInput.value = "";
             uploadStatus.textContent = "";
 
+
+            // Refresh chat.
 
             await loadMessages();
 
@@ -1083,6 +1131,10 @@
         sessionToken =
             null;
 
+        displayedMessageIds.clear();
+
+        messages.innerHTML = "";
+
         chatBox.style.display =
             "none";
 
@@ -1102,8 +1154,6 @@
     // ==========================================
     // REFRESH MESSAGES
     // ==========================================
-
-    // Check for new messages every 5 seconds.
 
     setInterval(
         function() {
