@@ -35,8 +35,11 @@
             font: inherit;
         }
 
-        a {
-            color: inherit;
+        button {
+            transition:
+                background 0.18s ease,
+                transform 0.18s ease,
+                box-shadow 0.18s ease;
         }
 
 
@@ -45,17 +48,16 @@
         ===================================== */
 
         .site-header {
-            background: rgba(255, 255, 255, 0.94);
+            background: rgba(255,255,255,0.94);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid #e5e9f0;
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 100;
         }
 
         .header-inner {
-            width: min(1160px, 92%);
+            width: min(1120px, 92%);
             margin: auto;
             height: 72px;
             display: flex;
@@ -71,6 +73,7 @@
             color: #172033;
             font-weight: 750;
             font-size: 20px;
+            cursor: pointer;
         }
 
         .brand-icon {
@@ -79,15 +82,10 @@
             border-radius: 11px;
             display: grid;
             place-items: center;
-            background: linear-gradient(
-                135deg,
-                #315efb,
-                #6c7dff
-            );
+            background: #315efb;
             color: white;
             font-size: 19px;
-            box-shadow:
-                0 6px 16px rgba(49, 94, 251, 0.22);
+            box-shadow: 0 6px 16px rgba(49,94,251,0.22);
         }
 
         .nav {
@@ -101,7 +99,7 @@
             text-decoration: none;
             font-size: 14px;
             font-weight: 600;
-            transition: color 0.15s ease;
+            cursor: pointer;
         }
 
         .nav a:hover {
@@ -110,23 +108,40 @@
 
 
         /* =====================================
+           PAGE SYSTEM
+        ===================================== */
+
+        .public-page {
+            display: none;
+        }
+
+        .public-page.active {
+            display: block;
+        }
+
+        .page-fade {
+            animation: pageFade 0.22s ease;
+        }
+
+        @keyframes pageFade {
+            from {
+                opacity: 0;
+                transform: translateY(7px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =====================================
            HERO
         ===================================== */
 
         .hero {
-            position: relative;
-            overflow: hidden;
             background:
-                radial-gradient(
-                    circle at 80% 20%,
-                    rgba(108, 125, 255, 0.12),
-                    transparent 28%
-                ),
-                radial-gradient(
-                    circle at 10% 80%,
-                    rgba(53, 185, 121, 0.08),
-                    transparent 28%
-                ),
                 linear-gradient(
                     135deg,
                     #eef3ff 0%,
@@ -137,120 +152,57 @@
         }
 
         .hero-inner {
-            width: min(1160px, 92%);
+            width: min(1120px, 92%);
             margin: auto;
-            padding: 88px 0 82px;
+            padding: 78px 0 72px;
             display: grid;
-            grid-template-columns: 1.05fr 0.95fr;
-            gap: 65px;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 55px;
             align-items: center;
         }
 
         .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            background: rgba(255, 255, 255, 0.8);
+            display: inline-block;
+            background: white;
             border: 1px solid #dce4f4;
             color: #315efb;
             border-radius: 999px;
             padding: 7px 13px;
             font-size: 12px;
             font-weight: 700;
-            margin-bottom: 19px;
-        }
-
-        .eyebrow::before {
-            content: "";
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #35b979;
+            margin-bottom: 18px;
         }
 
         .hero h1 {
             margin: 0;
-            font-size: clamp(40px, 5vw, 66px);
-            line-height: 1.02;
-            letter-spacing: -2.8px;
-            max-width: 700px;
+            font-size: clamp(38px, 5vw, 62px);
+            line-height: 1.04;
+            letter-spacing: -2px;
+            max-width: 650px;
         }
 
         .hero p {
             color: #5e697b;
             font-size: 18px;
-            line-height: 1.75;
-            max-width: 610px;
-            margin: 23px 0 0;
+            line-height: 1.7;
+            max-width: 590px;
+            margin: 22px 0 0;
         }
-
-        .hero-buttons {
-            display: flex;
-            gap: 12px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .hero-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 13px 19px;
-            border-radius: 9px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 700;
-            transition:
-                transform 0.18s ease,
-                box-shadow 0.18s ease,
-                background 0.18s ease;
-        }
-
-        .hero-button.primary {
-            background: #315efb;
-            color: white;
-            box-shadow:
-                0 8px 20px rgba(49, 94, 251, 0.18);
-        }
-
-        .hero-button.primary:hover {
-            background: #2449d7;
-            transform: translateY(-2px);
-            box-shadow:
-                0 12px 25px rgba(49, 94, 251, 0.23);
-        }
-
-        .hero-button.secondary {
-            background: white;
-            color: #344054;
-            border: 1px solid #dce2eb;
-        }
-
-        .hero-button.secondary:hover {
-            transform: translateY(-2px);
-            box-shadow:
-                0 8px 20px rgba(32, 49, 84, 0.07);
-        }
-
-
-        /* =====================================
-           HERO DASHBOARD CARD
-        ===================================== */
 
         .hero-card {
-            background: rgba(255, 255, 255, 0.94);
+            background: white;
             border: 1px solid #e1e6ef;
-            border-radius: 22px;
+            border-radius: 20px;
             padding: 25px;
             box-shadow:
-                0 25px 60px rgba(32, 49, 84, 0.11);
+                0 18px 45px rgba(32, 49, 84, 0.08);
         }
 
         .hero-card-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .hero-card-title {
@@ -258,144 +210,41 @@
             font-weight: 750;
         }
 
-        .status {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            color: #687386;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
             background: #35b979;
-            box-shadow:
-                0 0 0 4px rgba(53, 185, 121, 0.1);
+            box-shadow: 0 0 0 5px #e8f8f0;
         }
 
-        .learning-progress {
-            padding: 18px;
-            background: #f7f9fd;
-            border: 1px solid #edf0f5;
-            border-radius: 13px;
+        .mini-lines {
+            display: grid;
+            gap: 12px;
         }
 
-        .progress-heading {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 12px;
-            color: #687386;
-        }
-
-        .progress-heading strong {
-            color: #172033;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #e5e9f0;
+        .mini-line {
+            height: 12px;
             border-radius: 999px;
-            overflow: hidden;
+            background: #edf0f5;
         }
 
-        .progress-fill {
-            width: 72%;
-            height: 100%;
-            background:
-                linear-gradient(
-                    90deg,
-                    #315efb,
-                    #6c7dff
-                );
-            border-radius: inherit;
+        .mini-line.short {
+            width: 63%;
         }
 
-        .hero-stat-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 12px;
+        .mini-line.medium {
+            width: 81%;
         }
 
-        .hero-stat-box {
-            padding: 15px 12px;
-            border: 1px solid #edf0f5;
-            border-radius: 11px;
-            background: white;
-        }
-
-        .hero-stat-number {
-            display: block;
-            font-size: 20px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        .hero-stat-label {
-            display: block;
-            margin-top: 4px;
-            color: #8992a2;
-            font-size: 10px;
-        }
-
-        .hero-card-bottom {
-            margin-top: 17px;
-            padding-top: 17px;
+        .hero-stat {
+            margin-top: 24px;
+            padding-top: 20px;
             border-top: 1px solid #edf0f5;
-            color: #697386;
-            font-size: 12px;
             display: flex;
             justify-content: space-between;
-        }
-
-
-        /* =====================================
-           STATS STRIP
-        ===================================== */
-
-        .stats-section {
-            background: white;
-            border-bottom: 1px solid #e5e9f0;
-        }
-
-        .stats-inner {
-            width: min(1160px, 92%);
-            margin: auto;
-            padding: 27px 0;
-            display: grid;
-            grid-template-columns:
-                repeat(4, 1fr);
-        }
-
-        .stat-item {
-            padding: 4px 25px;
-            border-right: 1px solid #e7ebf1;
-        }
-
-        .stat-item:first-child {
-            padding-left: 0;
-        }
-
-        .stat-item:last-child {
-            border-right: none;
-        }
-
-        .stat-item strong {
-            display: block;
-            font-size: 21px;
-            letter-spacing: -0.5px;
-        }
-
-        .stat-item span {
-            display: block;
-            margin-top: 4px;
-            color: #7a8495;
-            font-size: 12px;
+            color: #697386;
+            font-size: 13px;
         }
 
 
@@ -404,95 +253,60 @@
         ===================================== */
 
         .section {
-            width: min(1160px, 92%);
+            width: min(1120px, 92%);
             margin: auto;
-            padding: 76px 0;
+            padding: 68px 0;
         }
 
         .section-heading {
-            margin-bottom: 30px;
-        }
-
-        .section-heading.center {
-            text-align: center;
-            max-width: 680px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .section-kicker {
-            color: #315efb;
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 9px;
+            margin-bottom: 28px;
         }
 
         .section-heading h2 {
-            margin: 0 0 9px;
-            font-size: 31px;
-            letter-spacing: -0.9px;
+            margin: 0 0 8px;
+            font-size: 30px;
+            letter-spacing: -0.7px;
         }
 
         .section-heading p {
             margin: 0;
             color: #687386;
-            line-height: 1.65;
         }
 
 
         /* =====================================
-           SUBJECTS
+           RESOURCES
         ===================================== */
 
         .resource-grid {
             display: grid;
             grid-template-columns:
                 repeat(4, 1fr);
-            gap: 17px;
+            gap: 18px;
         }
 
         .resource-card {
-            position: relative;
-            overflow: hidden;
             background: white;
             border: 1px solid #e1e6ef;
-            border-radius: 16px;
+            border-radius: 15px;
             padding: 23px;
             transition:
                 transform 0.18s ease,
                 box-shadow 0.18s ease,
                 border-color 0.18s ease;
-        }
-
-        .resource-card::after {
-            content: "→";
-            position: absolute;
-            right: 20px;
-            bottom: 18px;
-            color: #b3bccb;
-            font-size: 17px;
-            transition:
-                transform 0.18s ease,
-                color 0.18s ease;
+            cursor: pointer;
         }
 
         .resource-card:hover {
             transform: translateY(-5px);
-            border-color: #d5ddf2;
+            border-color: #cbd6f4;
             box-shadow:
-                0 15px 35px rgba(32, 49, 84, 0.09);
-        }
-
-        .resource-card:hover::after {
-            transform: translateX(4px);
-            color: #315efb;
+                0 16px 34px rgba(32, 49, 84, 0.1);
         }
 
         .resource-icon {
-            width: 45px;
-            height: 45px;
+            width: 43px;
+            height: 43px;
             border-radius: 12px;
             display: grid;
             place-items: center;
@@ -508,328 +322,355 @@
 
         .resource-card p {
             margin: 0;
-            padding-right: 18px;
             color: #687386;
             font-size: 14px;
             line-height: 1.6;
         }
 
+        .card-link {
+            display: inline-block;
+            margin-top: 18px;
+            color: #315efb;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
 
         /* =====================================
-           FEATURED PATHS
+           FEATURED AREA
         ===================================== */
 
-        .paths-section {
+        .featured {
+            background: #f0f3f8;
+            border-top: 1px solid #e5e9f0;
+            border-bottom: 1px solid #e5e9f0;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 20px;
+        }
+
+        .featured-main {
+            background: white;
+            border: 1px solid #e1e6ef;
+            border-radius: 17px;
+            padding: 28px;
+        }
+
+        .featured-label {
+            color: #315efb;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.7px;
+            text-transform: uppercase;
+        }
+
+        .featured-main h3 {
+            margin: 10px 0 10px;
+            font-size: 25px;
+        }
+
+        .featured-main p {
+            color: #687386;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .featured-button {
+            margin-top: 20px;
+            padding: 11px 16px;
+            border: none;
+            border-radius: 9px;
+            background: #315efb;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .featured-button:hover {
+            background: #2449d7;
+            transform: translateY(-1px);
+        }
+
+        .quick-topics {
+            background: white;
+            border: 1px solid #e1e6ef;
+            border-radius: 17px;
+            padding: 24px;
+        }
+
+        .quick-topics h3 {
+            margin: 0 0 18px;
+            font-size: 17px;
+        }
+
+        .quick-topic {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 13px 0;
+            border-bottom: 1px solid #edf0f5;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .quick-topic:last-child {
+            border-bottom: none;
+        }
+
+        .quick-topic:hover {
+            color: #315efb;
+        }
+
+        .quick-topic span:last-child {
+            color: #9aa3b2;
+        }
+
+
+        /* =====================================
+           SUBJECT PAGE
+        ===================================== */
+
+        .subject-hero {
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef3ff,
+                    #f8faff
+                );
+            border-bottom: 1px solid #e5e9f0;
+        }
+
+        .subject-hero-inner {
+            width: min(1120px, 92%);
+            margin: auto;
+            padding: 62px 0;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            border: none;
+            background: transparent;
+            color: #315efb;
+            padding: 0;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 28px;
+        }
+
+        .back-link:hover {
+            color: #2449d7;
+        }
+
+        .subject-icon-large {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            background: white;
+            border: 1px solid #dce4f4;
+            border-radius: 16px;
+            font-size: 27px;
+            margin-bottom: 18px;
+        }
+
+        .subject-hero h1 {
+            margin: 0;
+            font-size: clamp(34px, 5vw, 50px);
+            letter-spacing: -1.5px;
+        }
+
+        .subject-hero p {
+            max-width: 670px;
+            color: #687386;
+            font-size: 17px;
+            line-height: 1.7;
+            margin: 15px 0 0;
+        }
+
+        .article-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #e1e6ef;
+            border-radius: 16px;
+            padding: 25px;
+            cursor: pointer;
+            transition:
+                transform 0.18s ease,
+                box-shadow 0.18s ease,
+                border-color 0.18s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-4px);
+            border-color: #cbd6f4;
+            box-shadow:
+                0 15px 35px rgba(32,49,84,0.09);
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 14px;
+            color: #8992a2;
+            font-size: 12px;
+        }
+
+        .article-category {
+            color: #315efb;
+            font-weight: 750;
+        }
+
+        .article-card h2 {
+            margin: 0 0 9px;
+            font-size: 20px;
+            letter-spacing: -0.3px;
+        }
+
+        .article-card p {
+            color: #687386;
+            font-size: 14px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .article-read {
+            display: inline-block;
+            margin-top: 18px;
+            color: #315efb;
+            font-size: 13px;
+            font-weight: 750;
+        }
+
+
+        /* =====================================
+           ARTICLE READER
+        ===================================== */
+
+        .article-page {
+            min-height: calc(100vh - 72px);
+        }
+
+        .article-header {
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef3ff,
+                    #ffffff
+                );
+            border-bottom: 1px solid #e5e9f0;
+        }
+
+        .article-header-inner {
+            width: min(820px, 92%);
+            margin: auto;
+            padding: 58px 0 52px;
+        }
+
+        .article-header h1 {
+            margin: 0;
+            font-size: clamp(32px, 5vw, 50px);
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+        }
+
+        .article-header-description {
+            color: #687386;
+            font-size: 17px;
+            line-height: 1.7;
+            margin: 17px 0 0;
+        }
+
+        .article-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .article-pill {
+            background: white;
+            border: 1px solid #dce3ef;
+            border-radius: 999px;
+            padding: 7px 11px;
+            color: #687386;
+            font-size: 12px;
+            font-weight: 650;
+        }
+
+        .article-content {
+            width: min(820px, 92%);
+            margin: auto;
+            padding: 50px 0 80px;
+        }
+
+        .article-content h2 {
+            margin: 34px 0 12px;
+            font-size: 24px;
+            letter-spacing: -0.4px;
+        }
+
+        .article-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .article-content p {
+            color: #4e596b;
+            font-size: 16px;
+            line-height: 1.9;
+            margin: 0 0 19px;
+        }
+
+        .article-note {
+            margin: 28px 0;
+            padding: 20px 22px;
+            background: #f1f4fb;
+            border-left: 4px solid #315efb;
+            border-radius: 8px;
+            color: #4e596b;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+
+        /* =====================================
+           YOUTUBE
+        ===================================== */
+
+        .media-section {
             background: white;
             border-top: 1px solid #e5e9f0;
             border-bottom: 1px solid #e5e9f0;
         }
 
-        .path-grid {
-            display: grid;
-            grid-template-columns:
-                repeat(3, 1fr);
-            gap: 18px;
-        }
-
-        .path-card {
-            border: 1px solid #e1e6ef;
-            border-radius: 16px;
-            background: #fafbfc;
-            overflow: hidden;
-            transition:
-                transform 0.18s ease,
-                box-shadow 0.18s ease;
-        }
-
-        .path-card:hover {
-            transform: translateY(-4px);
-            box-shadow:
-                0 15px 35px rgba(32, 49, 84, 0.08);
-        }
-
-        .path-banner {
-            height: 105px;
-            padding: 20px;
-            display: flex;
-            align-items: flex-end;
-            font-size: 27px;
-            background:
-                linear-gradient(
-                    135deg,
-                    #edf2ff,
-                    #e7f0ff
-                );
-        }
-
-        .path-banner.green {
-            background:
-                linear-gradient(
-                    135deg,
-                    #edf9f3,
-                    #e4f5ed
-                );
-        }
-
-        .path-banner.gold {
-            background:
-                linear-gradient(
-                    135deg,
-                    #fff8e8,
-                    #fff2d5
-                );
-        }
-
-        .path-content {
-            padding: 20px;
-        }
-
-        .path-tag {
-            display: inline-block;
-            padding: 5px 8px;
-            background: white;
-            border: 1px solid #e4e8ef;
-            border-radius: 6px;
-            color: #687386;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .path-content h3 {
-            margin: 12px 0 7px;
-            font-size: 17px;
-        }
-
-        .path-content p {
-            margin: 0;
-            color: #687386;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .path-meta {
-            display: flex;
-            gap: 14px;
-            margin-top: 17px;
-            color: #8992a2;
-            font-size: 11px;
-        }
-
-
-        /* =====================================
-           DAILY LEARNING
-        ===================================== */
-
-        .daily-layout {
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 25px;
-        }
-
-        .daily-card {
-            background:
-                linear-gradient(
-                    135deg,
-                    #172033,
-                    #263452
-                );
-            color: white;
-            border-radius: 18px;
-            padding: 30px;
-            min-height: 245px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .daily-card::after {
-            content: "?";
-            position: absolute;
-            right: 25px;
-            bottom: -28px;
-            font-size: 180px;
-            line-height: 1;
-            font-weight: 900;
-            color: rgba(255,255,255,0.035);
-        }
-
-        .daily-label {
-            color: #aebcf7;
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .daily-card h3 {
-            position: relative;
-            z-index: 1;
-            margin: 18px 0 10px;
-            max-width: 600px;
-            font-size: 25px;
-            line-height: 1.25;
-            letter-spacing: -0.5px;
-        }
-
-        .daily-card p {
-            position: relative;
-            z-index: 1;
-            margin: 0;
-            max-width: 620px;
-            color: #c6cedc;
-            font-size: 14px;
-            line-height: 1.7;
-        }
-
-        .daily-note {
-            margin-top: 22px;
-            display: inline-block;
-            color: #d8def0;
-            font-size: 11px;
-        }
-
-        .tips-card {
-            background: white;
-            border: 1px solid #e1e6ef;
-            border-radius: 18px;
-            padding: 27px;
-        }
-
-        .tips-card h3 {
-            margin: 0 0 19px;
-            font-size: 19px;
-        }
-
-        .tip {
-            display: flex;
-            gap: 12px;
-            padding: 13px 0;
-            border-bottom: 1px solid #edf0f5;
-        }
-
-        .tip:last-child {
-            border-bottom: none;
-        }
-
-        .tip-number {
-            width: 27px;
-            height: 27px;
-            flex: 0 0 27px;
-            border-radius: 8px;
-            background: #eef3ff;
-            color: #315efb;
-            display: grid;
-            place-items: center;
-            font-size: 11px;
-            font-weight: 800;
-        }
-
-        .tip strong {
-            display: block;
-            font-size: 13px;
-            margin-bottom: 3px;
-        }
-
-        .tip span {
-            color: #7a8495;
-            font-size: 12px;
-            line-height: 1.5;
-        }
-
-
-        /* =====================================
-           HOW IT WORKS
-        ===================================== */
-
-        .process-section {
-            background: #f0f3f8;
-            border-top: 1px solid #e4e8ef;
-            border-bottom: 1px solid #e4e8ef;
-        }
-
-        .process-grid {
-            display: grid;
-            grid-template-columns:
-                repeat(3, 1fr);
-            gap: 18px;
-        }
-
-        .process-card {
-            background: white;
-            border: 1px solid #e1e6ef;
-            border-radius: 16px;
-            padding: 25px;
-        }
-
-        .process-number {
-            color: #315efb;
-            font-size: 12px;
-            font-weight: 800;
-        }
-
-        .process-card h3 {
-            margin: 17px 0 8px;
-            font-size: 17px;
-        }
-
-        .process-card p {
-            margin: 0;
-            color: #687386;
-            font-size: 13px;
-            line-height: 1.65;
-        }
-
-
-        /* =====================================
-           YOUTUBE SECTION
-        ===================================== */
-
-        .media-section {
-            background: white;
-        }
-
         .media-layout {
             display: grid;
-            grid-template-columns: 0.75fr 1.25fr;
-            gap: 50px;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 40px;
             align-items: center;
         }
 
         .media-info h2 {
             margin: 0 0 12px;
-            font-size: 31px;
-            letter-spacing: -0.8px;
+            font-size: 30px;
         }
 
         .media-info p {
             color: #687386;
-            line-height: 1.75;
+            line-height: 1.7;
             margin: 0;
-        }
-
-        .media-features {
-            margin-top: 24px;
-            display: grid;
-            gap: 12px;
-        }
-
-        .media-feature {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            color: #5e697b;
-            font-size: 13px;
-        }
-
-        .media-feature span {
-            width: 25px;
-            height: 25px;
-            border-radius: 7px;
-            display: grid;
-            place-items: center;
-            background: #eef3ff;
-            color: #315efb;
-            font-size: 11px;
         }
 
         .youtube-box {
@@ -852,9 +693,6 @@
             outline: none;
             background: #fafbfc;
             color: #172033;
-            transition:
-                border-color 0.15s ease,
-                background 0.15s ease;
         }
 
         #urlInput:focus {
@@ -870,14 +708,10 @@
             border-radius: 9px;
             cursor: pointer;
             font-weight: 700;
-            transition:
-                background 0.15s ease,
-                transform 0.15s ease;
         }
 
         #playButton:hover {
             background: #2449d7;
-            transform: translateY(-1px);
         }
 
         #error {
@@ -895,68 +729,13 @@
             border-radius: 13px;
             overflow: hidden;
             box-shadow:
-                0 15px 40px rgba(22, 31, 48, 0.14);
+                0 12px 35px rgba(22, 31, 48, 0.13);
         }
 
         iframe {
             width: 100%;
             height: 100%;
             border: none;
-        }
-
-
-        /* =====================================
-           FINAL CTA
-        ===================================== */
-
-        .cta-section {
-            background:
-                linear-gradient(
-                    135deg,
-                    #eef3ff,
-                    #f7faff
-                );
-            border-top: 1px solid #e3e8f2;
-            border-bottom: 1px solid #e3e8f2;
-        }
-
-        .cta {
-            width: min(800px, 92%);
-            margin: auto;
-            text-align: center;
-            padding: 80px 0;
-        }
-
-        .cta h2 {
-            margin: 0 0 12px;
-            font-size: 34px;
-            letter-spacing: -1px;
-        }
-
-        .cta p {
-            max-width: 600px;
-            margin: 0 auto;
-            color: #687386;
-            line-height: 1.7;
-            font-size: 15px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 13px 20px;
-            background: #315efb;
-            color: white;
-            text-decoration: none;
-            border-radius: 9px;
-            font-size: 14px;
-            font-weight: 700;
-            box-shadow:
-                0 8px 20px rgba(49, 94, 251, 0.18);
-        }
-
-        .cta-button:hover {
-            background: #2449d7;
         }
 
 
@@ -970,61 +749,22 @@
         }
 
         .footer-inner {
-            width: min(1160px, 92%);
+            width: min(1120px, 92%);
             margin: auto;
-            padding: 48px 0 30px;
-        }
-
-        .footer-main {
-            display: grid;
-            grid-template-columns: 1.4fr 1fr 1fr;
-            gap: 50px;
-            padding-bottom: 38px;
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
         }
 
         .footer-brand {
             color: white;
-            font-weight: 750;
-            font-size: 19px;
-            margin-bottom: 11px;
+            font-weight: 700;
         }
 
-        .footer-description {
-            max-width: 350px;
-            color: #8994a7;
+        .footer-text {
             font-size: 13px;
-            line-height: 1.7;
-        }
-
-        .footer-column h4 {
-            color: white;
-            margin: 0 0 14px;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.7px;
-        }
-
-        .footer-column a {
-            display: block;
-            width: fit-content;
-            color: #9ba5b7;
-            text-decoration: none;
-            font-size: 13px;
-            margin-bottom: 9px;
-        }
-
-        .footer-column a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid #2a3448;
-            padding-top: 22px;
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            font-size: 12px;
-            color: #798496;
         }
 
 
@@ -1276,15 +1016,11 @@
            MOBILE
         ===================================== */
 
-        @media (max-width: 950px) {
+        @media (max-width: 850px) {
 
             .hero-inner {
                 grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .hero-card {
-                max-width: 650px;
+                gap: 35px;
             }
 
             .resource-grid {
@@ -1292,23 +1028,18 @@
                     repeat(2, 1fr);
             }
 
-            .daily-layout {
-                grid-template-columns: 1fr;
-            }
-
             .media-layout {
                 grid-template-columns: 1fr;
             }
 
-            .footer-main {
-                grid-template-columns:
-                    1fr 1fr;
+            .featured-grid {
+                grid-template-columns: 1fr;
             }
 
         }
 
 
-        @media (max-width: 700px) {
+        @media (max-width: 650px) {
 
             .header-inner {
                 height: 62px;
@@ -1319,38 +1050,20 @@
             }
 
             .hero-inner {
-                padding: 60px 0;
+                padding: 55px 0;
             }
 
             .hero h1 {
-                letter-spacing: -2px;
-            }
-
-            .stats-inner {
-                grid-template-columns:
-                    repeat(2, 1fr);
-                gap: 20px 0;
-            }
-
-            .stat-item {
-                border-right: none;
-            }
-
-            .stat-item:nth-child(odd) {
-                border-right: 1px solid #e7ebf1;
-            }
-
-            .resource-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .path-grid,
-            .process-grid {
-                grid-template-columns: 1fr;
+                letter-spacing: -1.5px;
             }
 
             .section {
-                padding: 58px 0;
+                padding: 50px 0;
+            }
+
+            .resource-grid,
+            .article-grid {
+                grid-template-columns: 1fr;
             }
 
             .input-area {
@@ -1361,13 +1074,9 @@
                 width: 100%;
             }
 
-            .footer-main {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .footer-bottom {
+            .footer-inner {
                 flex-direction: column;
+                align-items: flex-start;
             }
 
             #chatInputArea {
@@ -1398,34 +1107,6 @@
 
         }
 
-
-        @media (max-width: 480px) {
-
-            .hero-stat-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-card-bottom {
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .stats-inner {
-                grid-template-columns: 1fr;
-            }
-
-            .stat-item,
-            .stat-item:nth-child(odd) {
-                border-right: none;
-                padding-left: 0;
-            }
-
-            .cta h2 {
-                font-size: 28px;
-            }
-
-        }
-
     </style>
 </head>
 
@@ -1444,16 +1125,32 @@
 
         <div class="header-inner">
 
-            <a href="#" class="brand">
+            <a
+                href="#"
+                class="brand"
+                id="homeBrand">
+
                 <span class="brand-icon">L</span>
+
                 LearnHub
+
             </a>
 
+
             <nav class="nav">
-                <a href="#resources">Subjects</a>
-                <a href="#paths">Learning Paths</a>
-                <a href="#media">Videos</a>
-                <a href="#about">About</a>
+
+                <a data-scroll="resources">
+                    Resources
+                </a>
+
+                <a data-scroll="media">
+                    Learning Videos
+                </a>
+
+                <a data-scroll="about">
+                    About
+                </a>
+
             </nav>
 
         </div>
@@ -1461,768 +1158,307 @@
     </header>
 
 
-    <!-- HERO -->
+    <!-- =====================================
+         HOME PAGE
+    ====================================== -->
 
-    <section class="hero">
+    <main
+        id="homePage"
+        class="public-page active page-fade">
 
-        <div class="hero-inner">
 
-            <div>
+        <!-- HERO -->
 
-                <span class="eyebrow">
-                    EDUCATION • EXPLORATION • LEARNING
-                </span>
+        <section class="hero">
 
-                <h1>
-                    Learn something
-                    new every day.
-                </h1>
+            <div class="hero-inner">
 
-                <p>
-                    Explore educational resources, discover
-                    interesting ideas, and use interactive
-                    media to make learning more engaging.
-                    Learn at your own pace and follow the
-                    subjects that interest you most.
-                </p>
+                <div>
 
-                <div class="hero-buttons">
+                    <span class="eyebrow">
+                        EDUCATION • EXPLORATION • LEARNING
+                    </span>
 
-                    <a
-                        href="#resources"
-                        class="hero-button primary">
-                        Explore Subjects
-                    </a>
+                    <h1>
+                        Learn something
+                        new every day.
+                    </h1>
 
-                    <a
-                        href="#media"
-                        class="hero-button secondary">
-                        Watch & Learn
-                    </a>
+                    <p>
+                        Explore educational resources,
+                        discover interesting ideas, and
+                        use interactive media to make
+                        learning more engaging.
+                    </p>
 
                 </div>
 
-            </div>
 
+                <div class="hero-card">
 
-            <!-- HERO DASHBOARD -->
+                    <div class="hero-card-top">
 
-            <div class="hero-card">
+                        <span class="hero-card-title">
+                            Featured learning resource
+                        </span>
 
-                <div class="hero-card-top">
-
-                    <span class="hero-card-title">
-                        Learning overview
-                    </span>
-
-                    <span class="status">
                         <span class="status-dot"></span>
-                        Ready to explore
-                    </span>
 
-                </div>
+                    </div>
 
+                    <div class="mini-lines">
 
-                <div class="learning-progress">
+                        <div class="mini-line"></div>
 
-                    <div class="progress-heading">
+                        <div class="mini-line medium"></div>
 
-                        <strong>
-                            Explore today's knowledge
-                        </strong>
+                        <div class="mini-line"></div>
+
+                        <div class="mini-line short"></div>
+
+                    </div>
+
+                    <div class="hero-stat">
 
                         <span>
-                            72%
-                        </span>
-
-                    </div>
-
-                    <div class="progress-bar">
-
-                        <div class="progress-fill"></div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="hero-stat-grid">
-
-                    <div class="hero-stat-box">
-
-                        <span class="hero-stat-number">
-                            4
-                        </span>
-
-                        <span class="hero-stat-label">
-                            Core subjects
-                        </span>
-
-                    </div>
-
-
-                    <div class="hero-stat-box">
-
-                        <span class="hero-stat-number">
-                            ∞
-                        </span>
-
-                        <span class="hero-stat-label">
-                            Questions to explore
-                        </span>
-
-                    </div>
-
-
-                    <div class="hero-stat-box">
-
-                        <span class="hero-stat-number">
-                            24/7
-                        </span>
-
-                        <span class="hero-stat-label">
                             Independent learning
                         </span>
 
+                        <span>
+                            Explore →
+                        </span>
+
                     </div>
 
                 </div>
 
-
-                <div class="hero-card-bottom">
-
-                    <span>
-                        Curiosity starts here.
-                    </span>
-
-                    <span>
-                        Explore →
-                    </span>
-
-                </div>
-
             </div>
 
-        </div>
+        </section>
 
-    </section>
 
+        <!-- RESOURCES -->
 
-    <!-- STATS -->
+        <section
+            class="section"
+            id="resources">
 
-    <section class="stats-section">
-
-        <div class="stats-inner">
-
-            <div class="stat-item">
-
-                <strong>
-                    4+
-                </strong>
-
-                <span>
-                    Core learning areas
-                </span>
-
-            </div>
-
-
-            <div class="stat-item">
-
-                <strong>
-                    100%
-                </strong>
-
-                <span>
-                    Self-paced exploration
-                </span>
-
-            </div>
-
-
-            <div class="stat-item">
-
-                <strong>
-                    ∞
-                </strong>
-
-                <span>
-                    Things worth discovering
-                </span>
-
-            </div>
-
-
-            <div class="stat-item">
-
-                <strong>
-                    1
-                </strong>
-
-                <span>
-                    Curious mind required
-                </span>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- SUBJECTS -->
-
-    <section
-        class="section"
-        id="resources">
-
-        <div class="section-heading">
-
-            <div class="section-kicker">
-                Explore
-            </div>
-
-            <h2>
-                Explore learning topics
-            </h2>
-
-            <p>
-                Start with a subject that interests you
-                and follow your curiosity from there.
-            </p>
-
-        </div>
-
-
-        <div class="resource-grid">
-
-            <article class="resource-card">
-
-                <div class="resource-icon">
-                    🔬
-                </div>
-
-                <h3>
-                    Science
-                </h3>
-
-                <p>
-                    Explore physics, chemistry, biology,
-                    space, experiments, and the natural
-                    world around us.
-                </p>
-
-            </article>
-
-
-            <article class="resource-card">
-
-                <div class="resource-icon">
-                    💻
-                </div>
-
-                <h3>
-                    Technology
-                </h3>
-
-                <p>
-                    Learn about computers, programming,
-                    engineering, digital systems, and
-                    modern technology.
-                </p>
-
-            </article>
-
-
-            <article class="resource-card">
-
-                <div class="resource-icon">
-                    🌎
-                </div>
-
-                <h3>
-                    Geography
-                </h3>
-
-                <p>
-                    Discover countries, environments,
-                    landscapes, cultures, maps, and
-                    how our world fits together.
-                </p>
-
-            </article>
-
-
-            <article class="resource-card">
-
-                <div class="resource-icon">
-                    📚
-                </div>
-
-                <h3>
-                    Study Skills
-                </h3>
-
-                <p>
-                    Discover ways to organize information,
-                    research effectively, and make
-                    independent learning easier.
-                </p>
-
-            </article>
-
-        </div>
-
-    </section>
-
-
-    <!-- LEARNING PATHS -->
-
-    <section
-        class="paths-section"
-        id="paths">
-
-        <div class="section">
-
-            <div class="section-heading center">
-
-                <div class="section-kicker">
-                    Learning paths
-                </div>
+            <div class="section-heading">
 
                 <h2>
-                    Follow a path of discovery
+                    Explore learning topics
                 </h2>
 
                 <p>
-                    Combine related ideas into a larger
-                    learning journey and build a broader
-                    understanding of the subject.
+                    Browse a variety of subjects and
+                    areas of knowledge.
                 </p>
 
             </div>
 
 
-            <div class="path-grid">
+            <div class="resource-grid">
 
-                <article class="path-card">
 
-                    <div class="path-banner">
-                        🚀
+                <article
+                    class="resource-card"
+                    data-subject="science">
+
+                    <div class="resource-icon">
+                        🔬
                     </div>
-
-                    <div class="path-content">
-
-                        <span class="path-tag">
-                            Science
-                        </span>
-
-                        <h3>
-                            Understanding Space
-                        </h3>
-
-                        <p>
-                            Explore planets, stars, galaxies,
-                            gravity, and the science behind
-                            space exploration.
-                        </p>
-
-                        <div class="path-meta">
-                            <span>5 topics</span>
-                            <span>Beginner</span>
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <article class="path-card">
-
-                    <div class="path-banner green">
-                        🖥️
-                    </div>
-
-                    <div class="path-content">
-
-                        <span class="path-tag">
-                            Technology
-                        </span>
-
-                        <h3>
-                            Inside a Computer
-                        </h3>
-
-                        <p>
-                            Learn how hardware, software,
-                            operating systems, networks,
-                            and code work together.
-                        </p>
-
-                        <div class="path-meta">
-                            <span>6 topics</span>
-                            <span>Beginner</span>
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <article class="path-card">
-
-                    <div class="path-banner gold">
-                        🧭
-                    </div>
-
-                    <div class="path-content">
-
-                        <span class="path-tag">
-                            Geography
-                        </span>
-
-                        <h3>
-                            Our Changing Planet
-                        </h3>
-
-                        <p>
-                            Explore climates, landscapes,
-                            natural resources, populations,
-                            and the forces shaping Earth.
-                        </p>
-
-                        <div class="path-meta">
-                            <span>7 topics</span>
-                            <span>Beginner</span>
-                        </div>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- DAILY LEARNING -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
-            <div class="section-kicker">
-                Keep exploring
-            </div>
-
-            <h2>
-                A little knowledge goes a long way
-            </h2>
-
-            <p>
-                Learning doesn't have to happen all at once.
-                Small discoveries can lead to much bigger
-                questions.
-            </p>
-
-        </div>
-
-
-        <div class="daily-layout">
-
-            <div class="daily-card">
-
-                <span class="daily-label">
-                    Question to explore
-                </span>
-
-                <h3>
-                    Why does the sky appear blue during
-                    the day?
-                </h3>
-
-                <p>
-                    Questions like this are where science
-                    begins. Explore the interaction between
-                    sunlight and Earth's atmosphere to find
-                    out what is happening above us.
-                </p>
-
-                <span class="daily-note">
-                    Science • Atmosphere • Light
-                </span>
-
-            </div>
-
-
-            <div class="tips-card">
-
-                <h3>
-                    Better learning habits
-                </h3>
-
-
-                <div class="tip">
-
-                    <div class="tip-number">
-                        1
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Ask questions
-                        </strong>
-
-                        <span>
-                            Don't just memorize an answer.
-                            Find out why it works.
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="tip">
-
-                    <div class="tip-number">
-                        2
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Connect ideas
-                        </strong>
-
-                        <span>
-                            Relating new information to
-                            things you already know makes
-                            it easier to understand.
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="tip">
-
-                    <div class="tip-number">
-                        3
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Take your time
-                        </strong>
-
-                        <span>
-                            Understanding something deeply
-                            is more valuable than rushing
-                            through it.
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- HOW IT WORKS -->
-
-    <section class="process-section">
-
-        <div class="section">
-
-            <div class="section-heading center">
-
-                <div class="section-kicker">
-                    Simple learning
-                </div>
-
-                <h2>
-                    Learn at your own pace
-                </h2>
-
-                <p>
-                    There is no single correct way to learn.
-                    Explore, watch, question, and come back
-                    whenever you want.
-                </p>
-
-            </div>
-
-
-            <div class="process-grid">
-
-                <article class="process-card">
-
-                    <span class="process-number">
-                        01
-                    </span>
 
                     <h3>
-                        Choose a topic
+                        Science
                     </h3>
 
                     <p>
-                        Start with something you're already
-                        interested in, or discover a subject
-                        you've never explored before.
+                        Explore physics, chemistry,
+                        biology, space, and the
+                        natural world.
                     </p>
+
+                    <span class="card-link">
+                        Explore Science →
+                    </span>
 
                 </article>
 
 
-                <article class="process-card">
+                <article
+                    class="resource-card"
+                    data-subject="technology">
 
-                    <span class="process-number">
-                        02
-                    </span>
+                    <div class="resource-icon">
+                        💻
+                    </div>
 
                     <h3>
-                        Explore ideas
+                        Technology
                     </h3>
 
                     <p>
-                        Use resources and educational videos
-                        to learn the fundamentals and discover
-                        new questions.
+                        Learn about computers,
+                        programming, engineering,
+                        and modern technology.
                     </p>
+
+                    <span class="card-link">
+                        Explore Technology →
+                    </span>
 
                 </article>
 
 
-                <article class="process-card">
+                <article
+                    class="resource-card"
+                    data-subject="geography">
 
-                    <span class="process-number">
-                        03
-                    </span>
+                    <div class="resource-icon">
+                        🌎
+                    </div>
 
                     <h3>
-                        Keep going
+                        Geography
                     </h3>
 
                     <p>
-                        Learning is an ongoing process. Follow
-                        interesting ideas wherever they lead
-                        and keep building your knowledge.
+                        Discover places, environments,
+                        cultures, and how our world
+                        works.
                     </p>
+
+                    <span class="card-link">
+                        Explore Geography →
+                    </span>
+
+                </article>
+
+
+                <article
+                    class="resource-card"
+                    data-subject="study">
+
+                    <div class="resource-icon">
+                        📚
+                    </div>
+
+                    <h3>
+                        Study Skills
+                    </h3>
+
+                    <p>
+                        Find ideas for studying,
+                        research, organization,
+                        and independent learning.
+                    </p>
+
+                    <span class="card-link">
+                        Explore Study Skills →
+                    </span>
 
                 </article>
 
             </div>
 
-        </div>
-
-    </section>
+        </section>
 
 
-    <!-- YOUTUBE -->
+        <!-- FEATURED -->
 
-    <section
-        class="media-section"
-        id="media">
+        <section class="featured">
 
-        <div class="section">
+            <div class="section">
 
-            <div class="media-layout">
-
-                <div class="media-info">
-
-                    <div class="section-kicker">
-                        Multimedia learning
-                    </div>
-
-                    <h2>
-                        Learn through video
-                    </h2>
-
-                    <p>
-                        Sometimes seeing an idea explained
-                        visually makes all the difference.
-                        Paste a YouTube link below and use
-                        the built-in player to explore
-                        educational content.
-                    </p>
+                <div class="featured-grid">
 
 
-                    <div class="media-features">
+                    <div class="featured-main">
 
-                        <div class="media-feature">
+                        <span class="featured-label">
+                            Featured article
+                        </span>
 
-                            <span>✓</span>
+                        <h3>
+                            How Do Computers Actually Think?
+                        </h3>
 
-                            <div>
-                                Watch explanations and lessons
-                            </div>
+                        <p>
+                            Computers do not think in the
+                            same way people do. Instead,
+                            they transform information
+                            through a series of carefully
+                            defined instructions.
+                        </p>
 
-                        </div>
+                        <button
+                            class="featured-button"
+                            data-article="computers-think">
 
+                            Read Article →
 
-                        <div class="media-feature">
-
-                            <span>✓</span>
-
-                            <div>
-                                Explore topics at your own pace
-                            </div>
-
-                        </div>
-
-
-                        <div class="media-feature">
-
-                            <span>✓</span>
-
-                            <div>
-                                Return to interesting ideas anytime
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="youtube-box">
-
-                    <div class="input-area">
-
-                        <input
-                            id="urlInput"
-                            type="text"
-                            placeholder="Paste a YouTube URL..."
-                            autocomplete="off"
-                        >
-
-                        <button id="playButton">
-                            Play
                         </button>
 
                     </div>
 
-                    <p id="error"></p>
 
-                    <div class="player-container">
+                    <div class="quick-topics">
 
-                        <iframe
-                            id="player"
-                            src=""
-                            allow="autoplay; encrypted-media; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>
+                        <h3>
+                            Quick topics
+                        </h3>
+
+
+                        <div
+                            class="quick-topic"
+                            data-article="black-holes">
+
+                            <span>
+                                The mystery of black holes
+                            </span>
+
+                            <span>→</span>
+
+                        </div>
+
+
+                        <div
+                            class="quick-topic"
+                            data-article="internet">
+
+                            <span>
+                                How the internet works
+                            </span>
+
+                            <span>→</span>
+
+                        </div>
+
+
+                        <div
+                            class="quick-topic"
+                            data-article="mountains">
+
+                            <span>
+                                How mountains form
+                            </span>
+
+                            <span>→</span>
+
+                        </div>
+
+
+                        <div
+                            class="quick-topic"
+                            data-article="remembering">
+
+                            <span>
+                                How memory works
+                            </span>
+
+                            <span>→</span>
+
+                        </div>
 
                     </div>
 
@@ -2230,129 +1466,245 @@
 
             </div>
 
-        </div>
-
-    </section>
+        </section>
 
 
-    <!-- FINAL CTA -->
+        <!-- YOUTUBE -->
 
-    <section class="cta-section">
+        <section
+            class="media-section"
+            id="media">
 
-        <div class="cta">
+            <div class="section">
 
-            <div class="section-kicker">
-                Keep learning
-            </div>
+                <div class="media-layout">
 
-            <h2>
-                Stay curious.
-            </h2>
+                    <div class="media-info">
 
-            <p>
-                The best learning often starts with a simple
-                question. Explore a subject, watch something
-                interesting, and see where your curiosity takes
-                you next.
-            </p>
+                        <h2>
+                            Learning videos
+                        </h2>
 
-            <a
-                href="#resources"
-                class="cta-button">
-                Explore Learning Topics
-            </a>
+                        <p>
+                            Use the video player to watch
+                            educational content and explore
+                            topics that interest you.
+                        </p>
 
-        </div>
-
-    </section>
-
-
-    <!-- FOOTER -->
-
-    <footer id="about">
-
-        <div class="footer-inner">
-
-            <div class="footer-main">
-
-                <div>
-
-                    <div class="footer-brand">
-                        LearnHub
                     </div>
 
-                    <div class="footer-description">
-                        Educational resources for curious
-                        minds. Explore subjects, discover
-                        ideas, and learn something new.
+
+                    <div class="youtube-box">
+
+                        <div class="input-area">
+
+                            <input
+                                id="urlInput"
+                                type="text"
+                                placeholder="Paste a YouTube URL..."
+                                autocomplete="off"
+                            >
+
+                            <button id="playButton">
+                                Play
+                            </button>
+
+                        </div>
+
+                        <p id="error"></p>
+
+                        <div class="player-container">
+
+                            <iframe
+                                id="player"
+                                src=""
+                                allow="autoplay; encrypted-media; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+
+                        </div>
+
                     </div>
-
-                </div>
-
-
-                <div class="footer-column">
-
-                    <h4>
-                        Explore
-                    </h4>
-
-                    <a href="#resources">
-                        Subjects
-                    </a>
-
-                    <a href="#paths">
-                        Learning Paths
-                    </a>
-
-                    <a href="#media">
-                        Learning Videos
-                    </a>
-
-                </div>
-
-
-                <div class="footer-column">
-
-                    <h4>
-                        Learn
-                    </h4>
-
-                    <a href="#resources">
-                        Science
-                    </a>
-
-                    <a href="#resources">
-                        Technology
-                    </a>
-
-                    <a href="#resources">
-                        Geography
-                    </a>
-
-                    <a href="#resources">
-                        Study Skills
-                    </a>
 
                 </div>
 
             </div>
 
+        </section>
 
-            <div class="footer-bottom">
 
-                <span>
-                    © 2026 LearnHub
-                </span>
+        <!-- FOOTER -->
 
-                <span>
+        <footer id="about">
+
+            <div class="footer-inner">
+
+                <div class="footer-brand">
+                    LearnHub
+                </div>
+
+                <div class="footer-text">
                     Educational resources for curious minds.
-                </span>
+                </div>
 
             </div>
 
-        </div>
+        </footer>
 
-    </footer>
+    </main>
+
+
+    <!-- =====================================
+         SUBJECT PAGE
+    ====================================== -->
+
+    <main
+        id="subjectPage"
+        class="public-page page-fade">
+
+        <section class="subject-hero">
+
+            <div class="subject-hero-inner">
+
+                <button
+                    class="back-link"
+                    id="subjectBack">
+
+                    ← Back to LearnHub
+
+                </button>
+
+
+                <div
+                    class="subject-icon-large"
+                    id="subjectIcon">
+                    🔬
+                </div>
+
+
+                <h1 id="subjectTitle">
+                    Science
+                </h1>
+
+
+                <p id="subjectDescription">
+                    Explore ideas, questions, discoveries,
+                    and interesting concepts from the
+                    world around us.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <h2>
+                    Articles
+                </h2>
+
+                <p id="articleCount">
+                    Explore these learning resources.
+                </p>
+
+            </div>
+
+
+            <div
+                class="article-grid"
+                id="articleGrid">
+            </div>
+
+        </section>
+
+
+        <footer>
+
+            <div class="footer-inner">
+
+                <div class="footer-brand">
+                    LearnHub
+                </div>
+
+                <div class="footer-text">
+                    Educational resources for curious minds.
+                </div>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+
+    <!-- =====================================
+         ARTICLE PAGE
+    ====================================== -->
+
+    <main
+        id="articlePage"
+        class="public-page page-fade article-page">
+
+        <section class="article-header">
+
+            <div class="article-header-inner">
+
+                <button
+                    class="back-link"
+                    id="articleBack">
+
+                    ← Back to Articles
+
+                </button>
+
+
+                <h1 id="articleTitle">
+                    Article
+                </h1>
+
+
+                <p
+                    class="article-header-description"
+                    id="articleDescription">
+                </p>
+
+
+                <div
+                    class="article-info"
+                    id="articleInfo">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <article
+            class="article-content"
+            id="articleContent">
+        </article>
+
+
+        <footer>
+
+            <div class="footer-inner">
+
+                <div class="footer-brand">
+                    LearnHub
+                </div>
+
+                <div class="footer-text">
+                    Educational resources for curious minds.
+                </div>
+
+            </div>
+
+        </footer>
+
+    </main>
 
 </div>
 
@@ -2364,8 +1716,6 @@
 <div id="privateArea">
 
     <div class="private-inner">
-
-        <!-- LOGIN -->
 
         <div id="loginBox">
 
@@ -2392,8 +1742,6 @@
 
         </div>
 
-
-        <!-- CHAT -->
 
         <div id="chatBox">
 
@@ -2478,9 +1826,9 @@
 
 <script>
 
-    // ==========================================
-    // SUPABASE
-    // ==========================================
+    /* ==========================================
+       SUPABASE
+    ========================================== */
 
     const SUPABASE_FUNCTION_URL =
         "https://ydycfpjdurgnctazelmy.supabase.co/functions/v1/chat-auth";
@@ -2489,17 +1837,1477 @@
         "https://ydycfpjdurgnctazelmy.supabase.co/functions/v1/clear-chat";
 
 
-    // ==========================================
-    // PUBLIC WEBSITE
-    // ==========================================
+    /* ==========================================
+       PUBLIC PAGE ELEMENTS
+    ========================================== */
 
     const publicSite =
         document.getElementById("publicSite");
 
+    const homePage =
+        document.getElementById("homePage");
 
-    // ==========================================
-    // YOUTUBE
-    // ==========================================
+    const subjectPage =
+        document.getElementById("subjectPage");
+
+    const articlePage =
+        document.getElementById("articlePage");
+
+    const homeBrand =
+        document.getElementById("homeBrand");
+
+    const subjectBack =
+        document.getElementById("subjectBack");
+
+    const articleBack =
+        document.getElementById("articleBack");
+
+    const subjectIcon =
+        document.getElementById("subjectIcon");
+
+    const subjectTitle =
+        document.getElementById("subjectTitle");
+
+    const subjectDescription =
+        document.getElementById("subjectDescription");
+
+    const articleGrid =
+        document.getElementById("articleGrid");
+
+    const articleCount =
+        document.getElementById("articleCount");
+
+    const articleTitle =
+        document.getElementById("articleTitle");
+
+    const articleDescription =
+        document.getElementById("articleDescription");
+
+    const articleInfo =
+        document.getElementById("articleInfo");
+
+    const articleContent =
+        document.getElementById("articleContent");
+
+
+    /* ==========================================
+       ARTICLE DATA
+    ========================================== */
+
+    const subjects = {
+
+        science: {
+
+            title: "Science",
+
+            icon: "🔬",
+
+            description:
+                "Explore physics, biology, space, " +
+                "chemistry, and the fascinating " +
+                "questions behind the natural world."
+
+        },
+
+        technology: {
+
+            title: "Technology",
+
+            icon: "💻",
+
+            description:
+                "Discover how computers, software, " +
+                "networks, and modern technology " +
+                "shape the world around us."
+
+        },
+
+        geography: {
+
+            title: "Geography",
+
+            icon: "🌎",
+
+            description:
+                "Explore landscapes, environments, " +
+                "climate, places, and the many ways " +
+                "Earth's surface changes."
+
+        },
+
+        study: {
+
+            title: "Study Skills",
+
+            icon: "📚",
+
+            description:
+                "Explore practical ideas for learning, " +
+                "remembering information, organizing " +
+                "work, and understanding difficult topics."
+
+        }
+
+    };
+
+
+    const articles = {
+
+        "black-holes": {
+
+            subject: "science",
+
+            title:
+                "The Mystery of Black Holes",
+
+            description:
+                "A look at some of the strangest " +
+                "objects scientists have imagined.",
+
+            time: "5 min read",
+
+            content: `
+
+                <p>
+                    Black holes are some of the most
+                    fascinating objects in the universe.
+                    They are regions of space where
+                    gravity becomes extraordinarily strong.
+                </p>
+
+                <h2>
+                    An unusual kind of gravity
+                </h2>
+
+                <p>
+                    Imagine space as a giant fabric.
+                    Normally, objects move across that
+                    fabric without too much trouble.
+                    A massive object can bend the fabric,
+                    changing the paths that nearby objects
+                    follow.
+                </p>
+
+                <p>
+                    A black hole represents an extreme
+                    version of this idea. Its gravity can
+                    become so strong that there is a
+                    boundary beyond which information
+                    cannot easily escape.
+                </p>
+
+                <div class="article-note">
+                    The word "black" does not mean that a
+                    black hole is simply a dark object.
+                    It refers to the fact that light itself
+                    cannot escape from beyond its boundary.
+                </div>
+
+                <h2>
+                    How could one form?
+                </h2>
+
+                <p>
+                    One possible route begins with a very
+                    massive star. Near the end of its life,
+                    the star can undergo dramatic changes.
+                    If enough material collapses inward,
+                    the result can become an extremely
+                    compact object.
+                </p>
+
+                <h2>
+                    Why are they interesting?
+                </h2>
+
+                <p>
+                    Black holes give scientists an unusual
+                    laboratory for studying gravity,
+                    space, time, and the behavior of matter.
+                    They also raise some of the biggest
+                    questions in modern physics.
+                </p>
+
+            `
+
+        },
+
+
+        "stars": {
+
+            subject: "science",
+
+            title:
+                "Why Do Stars Shine?",
+
+            description:
+                "A simple journey into the engines
+                that power stars.",
+
+            time: "4 min read",
+
+            content: `
+
+                <p>
+                    Look into the night sky and you can
+                    see countless points of light. Most
+                    of those points are incredibly distant
+                    stars.
+                </p>
+
+                <h2>
+                    Stars are enormous
+                </h2>
+
+                <p>
+                    A star is a huge collection of hot
+                    material held together by gravity.
+                    Deep inside the star, temperatures and
+                    pressures can become enormous.
+                </p>
+
+                <h2>
+                    Energy from the center
+                </h2>
+
+                <p>
+                    Inside many stars, lightweight atomic
+                    nuclei combine in processes that release
+                    energy. That energy slowly makes its way
+                    outward.
+                </p>
+
+                <p>
+                    Eventually, some of that energy reaches
+                    the surface and travels through space as
+                    light and other forms of radiation.
+                </p>
+
+                <h2>
+                    Different stars, different colors
+                </h2>
+
+                <p>
+                    Stars can appear different colors
+                    depending partly on their surface
+                    temperature. This means the night sky
+                    contains more information than it might
+                    seem to at first glance.
+                </p>
+
+            `
+
+        },
+
+
+        "volcanoes": {
+
+            subject: "science",
+
+            title:
+                "How Volcanoes Work",
+
+            description:
+                "What happens when material from deep
+                beneath Earth's surface reaches the top?",
+
+            time: "5 min read",
+
+            content: `
+
+                <p>
+                    Volcanoes are places where material from
+                    inside Earth can reach the surface.
+                    They can occur in several different
+                    geological environments.
+                </p>
+
+                <h2>
+                    Deep underground
+                </h2>
+
+                <p>
+                    Earth's interior is extremely hot.
+                    Some underground regions contain
+                    partially melted rock known as magma.
+                </p>
+
+                <p>
+                    When magma moves upward and reaches
+                    the surface, it is called lava.
+                </p>
+
+                <h2>
+                    More than mountains
+                </h2>
+
+                <p>
+                    Volcanoes do not always look like the
+                    classic cone-shaped mountains shown in
+                    illustrations. Their shapes depend on
+                    the materials involved and the way they
+                    formed.
+                </p>
+
+                <h2>
+                    Changing landscapes
+                </h2>
+
+                <p>
+                    Volcanic activity can create new land,
+                    reshape existing landscapes, and
+                    influence the surrounding environment.
+                </p>
+
+            `
+
+        },
+
+
+        "mars": {
+
+            subject: "science",
+
+            title:
+                "Could Humans Live on Mars?",
+
+            description:
+                "What would make another planet
+                suitable for human exploration?",
+
+            time: "6 min read",
+
+            content: `
+
+                <p>
+                    Mars has fascinated people for
+                    generations. It is relatively close to
+                    Earth and has a surface that scientists
+                    can study in considerable detail.
+                </p>
+
+                <h2>
+                    A difficult environment
+                </h2>
+
+                <p>
+                    Mars has a very thin atmosphere,
+                    extremely cold conditions, and a
+                    surface environment that is very
+                    different from Earth's.
+                </p>
+
+                <h2>
+                    Building a habitat
+                </h2>
+
+                <p>
+                    Any long-term human settlement would
+                    need reliable shelter, air, water,
+                    food, energy, and communication.
+                </p>
+
+                <div class="article-note">
+                    The interesting question is not simply
+                    "Can humans visit Mars?" but also
+                    "What systems would humans need to
+                    remain there safely for long periods?"
+                </div>
+
+                <h2>
+                    Why study Mars?
+                </h2>
+
+                <p>
+                    Studying Mars can teach us more about
+                    planetary history and the conditions
+                    that make environments suitable for
+                    life.
+                </p>
+
+            `
+
+        },
+
+
+        "computers-think": {
+
+            subject: "technology",
+
+            title:
+                "How Do Computers Actually Think?",
+
+            description:
+                "Computers do not think like people.
+                So what are they actually doing?",
+
+            time: "5 min read",
+
+            content: `
+
+                <p>
+                    Computers can perform calculations,
+                    run games, display videos, and process
+                    enormous amounts of information.
+                    But calling this "thinking" can be
+                    misleading.
+                </p>
+
+                <h2>
+                    Instructions
+                </h2>
+
+                <p>
+                    At their simplest level, computers
+                    follow instructions. A program provides
+                    a sequence of operations that tells the
+                    computer what to do.
+                </p>
+
+                <h2>
+                    Tiny operations
+                </h2>
+
+                <p>
+                    A complicated application may appear
+                    incredibly sophisticated, but underneath
+                    it are enormous numbers of small
+                    operations being performed extremely
+                    quickly.
+                </p>
+
+                <h2>
+                    Why software matters
+                </h2>
+
+                <p>
+                    Hardware provides the physical
+                    machinery, while software provides
+                    instructions. Together they allow
+                    computers to perform surprisingly
+                    complex tasks.
+                </p>
+
+            `
+
+        },
+
+
+        "internet": {
+
+            subject: "technology",
+
+            title:
+                "How Does the Internet Work?",
+
+            description:
+                "A simple look at how information
+                travels between computers.",
+
+            time: "6 min read",
+
+            content: `
+
+                <p>
+                    When you open a website, information
+                    may travel through several different
+                    computers and networks before appearing
+                    on your screen.
+                </p>
+
+                <h2>
+                    Packets
+                </h2>
+
+                <p>
+                    Digital information can be divided into
+                    smaller pieces often called packets.
+                    These pieces can travel through networks
+                    toward their destination.
+                </p>
+
+                <h2>
+                    Addresses
+                </h2>
+
+                <p>
+                    Computers need ways to identify where
+                    information should go. Networking
+                    systems use addresses and other rules
+                    to help organize communication.
+                </p>
+
+                <h2>
+                    Servers
+                </h2>
+
+                <p>
+                    A server is a computer that provides
+                    information or services to other
+                    computers. Websites are commonly
+                    delivered through web servers.
+                </p>
+
+                <div class="article-note">
+                    The internet is not one giant computer.
+                    It is a huge collection of interconnected
+                    networks communicating using shared
+                    standards.
+                </div>
+
+            `
+
+        },
+
+
+        "operating-systems": {
+
+            subject: "technology",
+
+            title:
+                "What Is an Operating System?",
+
+            description:
+                "The software layer that helps your
+                computer's hardware and applications
+                work together.",
+
+            time: "4 min read",
+
+            content: `
+
+                <p>
+                    Every modern computer needs software
+                    capable of coordinating its hardware
+                    and providing useful services to
+                    applications.
+                </p>
+
+                <h2>
+                    Managing hardware
+                </h2>
+
+                <p>
+                    An operating system helps applications
+                    interact with processors, memory,
+                    storage, displays, keyboards, and
+                    other hardware.
+                </p>
+
+                <h2>
+                    Running applications
+                </h2>
+
+                <p>
+                    When you open an application, the
+                    operating system helps provide the
+                    resources that application needs.
+                </p>
+
+                <h2>
+                    A layer between you and the machine
+                </h2>
+
+                <p>
+                    Instead of requiring every application
+                    to understand every hardware detail,
+                    the operating system provides a common
+                    layer that software can work with.
+                </p>
+
+            `
+
+        },
+
+
+        "robotics": {
+
+            subject: "technology",
+
+            title:
+                "A Look Inside Modern Robotics",
+
+            description:
+                "How machines can sense their environment
+                and respond to it.",
+
+            time: "5 min read",
+
+            content: `
+
+                <p>
+                    Robots are machines designed to perform
+                    tasks with varying levels of automation.
+                    Some are extremely simple while others
+                    contain sophisticated computers and
+                    sensors.
+                </p>
+
+                <h2>
+                    Sensors
+                </h2>
+
+                <p>
+                    A robot can use sensors to collect
+                    information about its surroundings.
+                    Cameras, distance sensors, and other
+                    devices can provide different kinds of
+                    information.
+                </p>
+
+                <h2>
+                    Decisions
+                </h2>
+
+                <p>
+                    Software can process sensor information
+                    and determine what the machine should
+                    do next.
+                </p>
+
+                <h2>
+                    Movement
+                </h2>
+
+                <p>
+                    Motors and mechanical components allow
+                    a robot to turn decisions into physical
+                    movement.
+                </p>
+
+            `
+
+        },
+
+
+        "mountains": {
+
+            subject: "geography",
+
+            title:
+                "How Do Mountains Form?",
+
+            description:
+                "The slow geological processes that can
+                build enormous landscapes.",
+
+            time: "5 min read",
+
+            content: `
+
+                <p>
+                    Mountains may appear permanent, but
+                    Earth's surface is constantly changing.
+                    Some mountain ranges have formed through
+                    enormous geological processes occurring
+                    over very long periods.
+                </p>
+
+                <h2>
+                    Moving plates
+                </h2>
+
+                <p>
+                    Earth's outer layer is divided into
+                    large pieces known as tectonic plates.
+                    These plates can move relative to one
+                    another.
+                </p>
+
+                <h2>
+                    Collisions
+                </h2>
+
+                <p>
+                    When large sections of Earth's crust
+                    interact, rocks can be compressed,
+                    folded, lifted, or otherwise changed.
+                </p>
+
+                <p>
+                    Over huge spans of time, these processes
+                    can produce dramatic mountain ranges.
+                </p>
+
+            `
+
+        },
+
+
+        "deserts": {
+
+            subject: "geography",
+
+            title:
+                "Why Do Deserts Exist?",
+
+            description:
+                "Deserts are defined by dryness rather
+                than simply by heat.",
+
+            time: "4 min read",
+
+            content: `
+
+                <p>
+                    When people imagine deserts, they often
+                    picture endless hot sand. In reality,
+                    deserts can have many different landscapes
+                    and temperatures.
+                </p>
+
+                <h2>
+                    The important ingredient: precipitation
+                </h2>
+
+                <p>
+                    A desert is generally characterized by
+                    very low amounts of precipitation.
+                    This can happen for several different
+                    reasons.
+                </p>
+
+                <h2>
+                    Mountains and rain
+                </h2>
+
+                <p>
+                    Mountains can influence how moisture
+                    moves through the atmosphere. Air may
+                    lose much of its moisture on one side,
+                    leaving the other side considerably
+                    drier.
+                </p>
+
+                <h2>
+                    Cold deserts
+                </h2>
+
+                <p>
+                    Some polar environments are considered
+                    deserts because they receive extremely
+                    little precipitation despite being
+                    covered by ice.
+                </p>
+
+            `
+
+        },
+
+
+        "rivers": {
+
+            subject: "geography",
+
+            title:
+                "How Rivers Shape the Land",
+
+            description:
+                "Water can gradually transform landscapes
+                through erosion and deposition.",
+
+            time: "5 min read",
+
+            content: `
+
+                <p>
+                    Rivers are more than pathways for water.
+                    Over time, flowing water can transport
+                    sediment and gradually change the
+                    landscape around it.
+                </p>
+
+                <h2>
+                    Erosion
+                </h2>
+
+                <p>
+                    Moving water can wear away material
+                    from riverbanks and channels. The
+                    amount and speed of erosion depends
+                    on many environmental factors.
+                </p>
+
+                <h2>
+                    Transportation
+                </h2>
+
+                <p>
+                    Sediment can be carried downstream.
+                    Larger pieces may move during stronger
+                    flows while smaller particles can remain
+                    suspended.
+                </p>
+
+                <h2>
+                    Deposition
+                </h2>
+
+                <p>
+                    When water slows down, some sediment
+                    can settle. Over long periods, this can
+                    create new features in the landscape.
+                </p>
+
+            `
+
+        },
+
+
+        "remote-islands": {
+
+            subject: "geography",
+
+            title:
+                "The World's Remote Islands",
+
+            description:
+                "Why isolated islands can develop
+                surprisingly unique environments.",
+
+            time: "5 min read",
+
+            content: `
+
+                <p>
+                    Islands can be fascinating natural
+                    laboratories because physical separation
+                    influences how plants, animals, and
+                    people interact with their environment.
+                </p>
+
+                <h2>
+                    Isolation
+                </h2>
+
+                <p>
+                    An island separated from other land may
+                    receive fewer new species. Over long
+                    periods, populations can develop in
+                    different ways from related populations
+                    elsewhere.
+                </p>
+
+                <h2>
+                    Different environments
+                </h2>
+
+                <p>
+                    Islands vary enormously. Some are
+                    tropical, some are cold, and others are
+                    dominated by steep cliffs or volcanic
+                    terrain.
+                </p>
+
+                <p>
+                    Their geography can make even relatively
+                    small islands surprisingly diverse.
+                </p>
+
+            `
+
+        },
+
+
+        "remembering": {
+
+            subject: "study",
+
+            title:
+                "How Can You Remember Information?",
+
+            description:
+                "Why actively working with information can
+                make learning more meaningful.",
+
+            time: "4 min read",
+
+            content: `
+
+                <p>
+                    Remembering something is often easier
+                    when you interact with the information
+                    instead of simply reading it repeatedly.
+                </p>
+
+                <h2>
+                    Retrieval
+                </h2>
+
+                <p>
+                    One useful approach is attempting to
+                    recall information without looking at
+                    your notes first. This turns studying
+                    into an active process.
+                </p>
+
+                <h2>
+                    Connections
+                </h2>
+
+                <p>
+                    New information can become easier to
+                    understand when you connect it to ideas
+                    you already know.
+                </p>
+
+                <h2>
+                    Explanation
+                </h2>
+
+                <p>
+                    Trying to explain an idea in your own
+                    words can reveal which parts you
+                    understand and which parts need more
+                    attention.
+                </p>
+
+            `
+
+        },
+
+
+        "better-notes": {
+
+            subject: "study",
+
+            title:
+                "What Makes Good Notes?",
+
+            description:
+                "A practical look at turning information
+                into useful study material.",
+
+            time: "4 min read",
+
+            content: `
+
+                <p>
+                    Good notes do not need to contain every
+                    word from a lesson. Their purpose is to
+                    capture the information that will help
+                    you understand and remember the topic.
+                </p>
+
+                <h2>
+                    Structure matters
+                </h2>
+
+                <p>
+                    Headings, short sections, examples,
+                    and clear labels can make notes easier
+                    to review later.
+                </p>
+
+                <h2>
+                    Use your own words
+                </h2>
+
+                <p>
+                    Rephrasing an idea can force you to
+                    process what it actually means rather
+                    than simply copying it.
+                </p>
+
+                <h2>
+                    Questions are useful
+                </h2>
+
+                <p>
+                    Writing down questions can give you
+                    specific things to investigate when
+                    you continue studying.
+                </p>
+
+            `
+
+        },
+
+
+        "difficult-topics": {
+
+            subject: "study",
+
+            title:
+                "Breaking Down Difficult Topics",
+
+            description:
+                "A large problem can become much easier
+                when divided into smaller questions.",
+
+            time: "5 min read",
+
+            content: `
+
+                <p>
+                    Some subjects seem difficult because
+                    they contain many smaller ideas that
+                    depend on one another.
+                </p>
+
+                <h2>
+                    Start with the basics
+                </h2>
+
+                <p>
+                    Before tackling the hardest question,
+                    identify the concepts that the question
+                    depends on.
+                </p>
+
+                <h2>
+                    Make smaller questions
+                </h2>
+
+                <p>
+                    Instead of asking "How does everything
+                    work?", ask a series of narrower
+                    questions that can be answered one
+                    at a time.
+                </p>
+
+                <div class="article-note">
+                    Understanding a topic is often less
+                    about memorizing one huge explanation
+                    and more about building a connected
+                    collection of smaller ideas.
+                </div>
+
+                <h2>
+                    Rebuild the big picture
+                </h2>
+
+                <p>
+                    Once the smaller pieces make sense,
+                    connect them again. This can turn a
+                    confusing subject into a much clearer
+                    system.
+                </p>
+
+            `
+
+        },
+
+
+        "study-routine": {
+
+            subject: "study",
+
+            title:
+                "Building a Study Routine",
+
+            description:
+                "A simple framework for making learning
+                more consistent.",
+
+            time: "4 min read",
+
+            content: `
+
+                <p>
+                    A study routine does not have to be
+                    complicated. The goal is to make it
+                    easier to begin and easier to know
+                    what to work on.
+                </p>
+
+                <h2>
+                    Decide what matters
+                </h2>
+
+                <p>
+                    Begin by identifying the subjects or
+                    tasks that actually need attention.
+                    A short list can be easier to manage
+                    than an enormous plan.
+                </p>
+
+                <h2>
+                    Give each task a purpose
+                </h2>
+
+                <p>
+                    Instead of simply writing "study
+                    science", choose a specific goal such
+                    as reviewing a concept or answering
+                    practice questions.
+                </p>
+
+                <h2>
+                    Review what happened
+                </h2>
+
+                <p>
+                    At the end, check what you understood,
+                    what remains confusing, and what should
+                    be revisited later.
+                </p>
+
+            `
+
+        }
+
+    };
+
+
+    /* ==========================================
+       SUBJECT ARTICLE LISTS
+    ========================================== */
+
+    const subjectArticles = {
+
+        science: [
+            "black-holes",
+            "stars",
+            "volcanoes",
+            "mars"
+        ],
+
+        technology: [
+            "computers-think",
+            "internet",
+            "operating-systems",
+            "robotics"
+        ],
+
+        geography: [
+            "mountains",
+            "deserts",
+            "rivers",
+            "remote-islands"
+        ],
+
+        study: [
+            "remembering",
+            "better-notes",
+            "difficult-topics",
+            "study-routine"
+        ]
+
+    };
+
+
+    let currentSubject =
+        "science";
+
+
+    let currentArticle =
+        null;
+
+
+    /* ==========================================
+       PAGE SWITCHING
+    ========================================== */
+
+    function showPublicPage(page) {
+
+        homePage.classList.remove("active");
+        subjectPage.classList.remove("active");
+        articlePage.classList.remove("active");
+
+        page.classList.add("active");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    function showHome() {
+
+        showPublicPage(homePage);
+
+    }
+
+
+    /* ==========================================
+       OPEN SUBJECT
+    ========================================== */
+
+    function openSubject(subjectKey) {
+
+        const subject =
+            subjects[subjectKey];
+
+        if (!subject) {
+            return;
+        }
+
+        currentSubject =
+            subjectKey;
+
+        subjectIcon.textContent =
+            subject.icon;
+
+        subjectTitle.textContent =
+            subject.title;
+
+        subjectDescription.textContent =
+            subject.description;
+
+
+        articleGrid.innerHTML =
+            "";
+
+
+        const ids =
+            subjectArticles[subjectKey];
+
+
+        articleCount.textContent =
+            `${ids.length} articles available in ${subject.title}.`;
+
+
+        ids.forEach(
+            function(articleId) {
+
+                const article =
+                    articles[articleId];
+
+                const card =
+                    document.createElement("article");
+
+                card.className =
+                    "article-card";
+
+
+                card.innerHTML = `
+
+                    <div class="article-meta">
+
+                        <span class="article-category">
+                            ${subject.title}
+                        </span>
+
+                        <span>•</span>
+
+                        <span>
+                            ${article.time}
+                        </span>
+
+                    </div>
+
+                    <h2>
+                        ${article.title}
+                    </h2>
+
+                    <p>
+                        ${article.description}
+                    </p>
+
+                    <span class="article-read">
+                        Read Article →
+                    </span>
+
+                `;
+
+
+                card.addEventListener(
+                    "click",
+                    function() {
+
+                        openArticle(articleId);
+
+                    }
+                );
+
+
+                articleGrid.appendChild(
+                    card
+                );
+
+            }
+        );
+
+
+        showPublicPage(
+            subjectPage
+        );
+
+    }
+
+
+    /* ==========================================
+       OPEN ARTICLE
+    ========================================== */
+
+    function openArticle(articleId) {
+
+        const article =
+            articles[articleId];
+
+        if (!article) {
+            return;
+        }
+
+
+        currentArticle =
+            articleId;
+
+        const subject =
+            subjects[article.subject];
+
+
+        articleTitle.textContent =
+            article.title;
+
+        articleDescription.textContent =
+            article.description;
+
+
+        articleInfo.innerHTML = `
+
+            <span class="article-pill">
+                ${subject.icon} ${subject.title}
+            </span>
+
+            <span class="article-pill">
+                ${article.time}
+            </span>
+
+            <span class="article-pill">
+                Independent learning
+            </span>
+
+        `;
+
+
+        articleContent.innerHTML =
+            article.content;
+
+
+        showPublicPage(
+            articlePage
+        );
+
+    }
+
+
+    /* ==========================================
+       NAVIGATION EVENTS
+    ========================================== */
+
+    document
+        .querySelectorAll("[data-subject]")
+        .forEach(
+            function(card) {
+
+                card.addEventListener(
+                    "click",
+                    function() {
+
+                        openSubject(
+                            card.dataset.subject
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll("[data-article]")
+        .forEach(
+            function(element) {
+
+                element.addEventListener(
+                    "click",
+                    function() {
+
+                        openArticle(
+                            element.dataset.article
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    homeBrand.addEventListener(
+        "click",
+        function(event) {
+
+            event.preventDefault();
+
+            showHome();
+
+        }
+    );
+
+
+    subjectBack.addEventListener(
+        "click",
+        function() {
+
+            showHome();
+
+        }
+    );
+
+
+    articleBack.addEventListener(
+        "click",
+        function() {
+
+            openSubject(
+                currentArticle
+                    ? articles[currentArticle].subject
+                    : currentSubject
+            );
+
+        }
+    );
+
+
+    document
+        .querySelectorAll("[data-scroll]")
+        .forEach(
+            function(link) {
+
+                link.addEventListener(
+                    "click",
+                    function(event) {
+
+                        event.preventDefault();
+
+                        const target =
+                            document.getElementById(
+                                link.dataset.scroll
+                            );
+
+                        showHome();
+
+                        setTimeout(
+                            function() {
+
+                                if (target) {
+
+                                    target.scrollIntoView({
+                                        behavior: "smooth"
+                                    });
+
+                                }
+
+                            },
+                            50
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    /* ==========================================
+       YOUTUBE
+    ========================================== */
 
     const input =
         document.getElementById("urlInput");
@@ -2598,9 +3406,9 @@
     );
 
 
-    // ==========================================
-    // CHAT ELEMENTS
-    // ==========================================
+    /* ==========================================
+       CHAT ELEMENTS
+    ========================================== */
 
     const privateArea =
         document.getElementById("privateArea");
@@ -2656,9 +3464,9 @@
         new Set();
 
 
-    // ==========================================
-    // SECRET URL
-    // ==========================================
+    /* ==========================================
+       SECRET URL
+    ========================================== */
 
     const secretPath =
         decodeURIComponent(
@@ -2679,9 +3487,9 @@
     }
 
 
-    // ==========================================
-    // BACK TO WEBSITE
-    // ==========================================
+    /* ==========================================
+       BACK TO WEBSITE
+    ========================================== */
 
     function backToWebsite() {
 
@@ -2723,10 +3531,7 @@
         );
 
 
-        window.scrollTo(
-            0,
-            0
-        );
+        showHome();
 
     }
 
@@ -2737,9 +3542,9 @@
     );
 
 
-    // ==========================================
-    // LOGIN
-    // ==========================================
+    /* ==========================================
+       LOGIN
+    ========================================== */
 
     async function login() {
 
@@ -2868,9 +3673,9 @@
     );
 
 
-    // ==========================================
-    // LOAD MESSAGES
-    // ==========================================
+    /* ==========================================
+       LOAD MESSAGES
+    ========================================== */
 
     async function loadMessages() {
 
@@ -3002,9 +3807,9 @@
     }
 
 
-    // ==========================================
-    // ADD MESSAGE
-    // ==========================================
+    /* ==========================================
+       ADD MESSAGE
+    ========================================== */
 
     function addMessage(message) {
 
@@ -3105,9 +3910,9 @@
     }
 
 
-    // ==========================================
-    // UPLOAD IMAGE
-    // ==========================================
+    /* ==========================================
+       UPLOAD IMAGE
+    ========================================== */
 
     async function uploadImage(file) {
 
@@ -3185,9 +3990,9 @@
     }
 
 
-    // ==========================================
-    // SEND MESSAGE
-    // ==========================================
+    /* ==========================================
+       SEND MESSAGE
+    ========================================== */
 
     async function sendMessage() {
 
@@ -3366,9 +4171,9 @@
     );
 
 
-    // ==========================================
-    // CLEAR CHAT
-    // ==========================================
+    /* ==========================================
+       CLEAR CHAT
+    ========================================== */
 
     async function clearChat() {
 
@@ -3481,9 +4286,9 @@
     );
 
 
-    // ==========================================
-    // SESSION EXPIRED
-    // ==========================================
+    /* ==========================================
+       SESSION EXPIRED
+    ========================================== */
 
     function sessionExpired() {
 
@@ -3512,9 +4317,9 @@
     }
 
 
-    // ==========================================
-    // REFRESH
-    // ==========================================
+    /* ==========================================
+       MESSAGE REFRESH
+    ========================================== */
 
     setInterval(
         function() {
