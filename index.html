@@ -7,6 +7,7 @@
     <title>YouTube Player</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -81,9 +82,10 @@
             border: none;
         }
 
-        /* -------------------------
+
+        /* =====================================
            PRIVATE CHAT
-        ------------------------- */
+        ===================================== */
 
         #privateArea {
             display: none;
@@ -121,6 +123,28 @@
 
         #chatBox {
             display: none;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .chat-header h2 {
+            margin: 0;
+        }
+
+        #clearButton {
+            padding: 9px 15px;
+            background: #3a1c1c;
+            color: white;
+        }
+
+        #clearButton:hover {
+            background: #542020;
         }
 
         #messages {
@@ -195,6 +219,11 @@
             min-height: 20px;
         }
 
+
+        /* =====================================
+           MOBILE
+        ===================================== */
+
         @media (max-width: 750px) {
 
             #chatInputArea {
@@ -209,15 +238,23 @@
                 max-width: none;
             }
 
+            .chat-header {
+                align-items: stretch;
+            }
+
         }
+
     </style>
 </head>
+
 
 <body>
 
 <main>
 
-    <!-- NORMAL YOUTUBE PLAYER -->
+    <!-- =====================================
+         YOUTUBE
+    ====================================== -->
 
     <h1>YouTube Player</h1>
 
@@ -250,11 +287,13 @@
     </div>
 
 
-    <!-- PRIVATE AREA -->
+    <!-- =====================================
+         PRIVATE CHAT
+    ====================================== -->
 
     <div id="privateArea">
 
-        <!-- PASSWORD SCREEN -->
+        <!-- LOGIN -->
 
         <div id="loginBox">
 
@@ -280,9 +319,23 @@
 
         <div id="chatBox">
 
-            <h2>Private Chat</h2>
+            <div class="chat-header">
+
+                <h2>
+                    Private Chat
+                </h2>
+
+                <button
+                    id="clearButton"
+                    type="button">
+                    Clear Chat
+                </button>
+
+            </div>
+
 
             <div id="messages"></div>
+
 
             <div id="chatInputArea">
 
@@ -314,6 +367,7 @@
 
             </div>
 
+
             <div id="uploadStatus"></div>
 
             <p id="chatError"></p>
@@ -334,9 +388,12 @@
     const SUPABASE_FUNCTION_URL =
         "https://ydycfpjdurgnctazelmy.supabase.co/functions/v1/chat-auth";
 
+    const CLEAR_CHAT_FUNCTION_URL =
+        "https://ydycfpjdurgnctazelmy.supabase.co/functions/v1/clear-chat";
+
 
     // ==========================================
-    // YOUTUBE PLAYER
+    // YOUTUBE
     // ==========================================
 
     const input =
@@ -363,12 +420,20 @@
                 parsed.hostname === "youtube.com" ||
                 parsed.hostname === "www.youtube.com"
             ) {
+
                 return parsed.searchParams.get("v");
+
             }
 
-            if (parsed.hostname === "youtu.be") {
+
+            if (
+                parsed.hostname === "youtu.be"
+            ) {
+
                 return parsed.pathname.substring(1);
+
             }
+
 
             return null;
 
@@ -377,6 +442,7 @@
             return null;
 
         }
+
     }
 
 
@@ -390,16 +456,20 @@
         const videoID =
             getYouTubeID(url);
 
+
         if (!videoID) {
 
             error.textContent =
                 "Please enter a valid YouTube URL.";
 
             return;
+
         }
+
 
         player.src =
             `https://www.youtube.com/embed/${videoID}?autoplay=1`;
+
     }
 
 
@@ -414,7 +484,9 @@
         function(event) {
 
             if (event.key === "Enter") {
+
                 playVideo();
+
             }
 
         }
@@ -422,7 +494,7 @@
 
 
     // ==========================================
-    // PRIVATE CHAT ELEMENTS
+    // CHAT ELEMENTS
     // ==========================================
 
     const privateArea =
@@ -464,22 +536,22 @@
     const chatError =
         document.getElementById("chatError");
 
-
-    // Session token stays ONLY in memory.
-
-    let sessionToken = null;
+    const clearButton =
+        document.getElementById("clearButton");
 
 
-    // Keep track of messages already displayed.
-    // This prevents the chat from being rebuilt
-    // every time it refreshes.
+    let sessionToken =
+        null;
+
+
+    // Track messages already shown.
 
     const displayedMessageIds =
         new Set();
 
 
     // ==========================================
-    // CHECK SECRET URL
+    // SECRET URL
     // ==========================================
 
     const secretPath =
@@ -509,13 +581,16 @@
         const password =
             passwordInput.value;
 
+
         if (!password) {
 
             loginError.textContent =
                 "Enter the password.";
 
             return;
+
         }
+
 
         loginButton.disabled =
             true;
@@ -559,21 +634,14 @@
                     data.error ||
                     "Login failed.";
 
-                console.log(
-                    "Login response:",
-                    data
-                );
-
                 return;
+
             }
 
 
             sessionToken =
                 data.token;
 
-
-            // Clear any old message tracking
-            // from a previous session.
 
             displayedMessageIds.clear();
 
@@ -608,6 +676,7 @@
                 "Enter";
 
         }
+
     }
 
 
@@ -622,7 +691,9 @@
         function(event) {
 
             if (event.key === "Enter") {
+
                 login();
+
             }
 
         }
@@ -638,6 +709,7 @@
         if (!sessionToken) {
             return;
         }
+
 
         chatError.textContent = "";
 
@@ -674,6 +746,7 @@
                 sessionExpired();
 
                 return;
+
             }
 
 
@@ -684,31 +757,23 @@
                     "Could not load messages.";
 
                 return;
+
             }
 
 
-            // Only add messages that haven't
-            // already been displayed.
-
-            let addedNewMessage = false;
+            let addedNewMessage =
+                false;
 
 
             for (const message of data) {
 
-                /*
-                 * The backend currently needs to return
-                 * the message ID for this to work correctly.
-                 *
-                 * If an older backend response doesn't
-                 * contain an ID, use the created_at value
-                 * as a fallback.
-                 */
-
                 const messageId =
                     message.id !== undefined &&
                     message.id !== null
+
                         ? String(message.id)
-                        : `${message.created_at}-${message.username}-${message.message}-${message.image_url || ""}`;
+
+                        : `${message.created_at}-${message.username}-${message.message}`;
 
 
                 if (
@@ -716,7 +781,9 @@
                         messageId
                     )
                 ) {
+
                     continue;
+
                 }
 
 
@@ -730,14 +797,11 @@
                 );
 
 
-                addedNewMessage = true;
+                addedNewMessage =
+                    true;
 
             }
 
-
-            // Only scroll when a genuinely new message
-            // was added AND the user was already near
-            // the bottom.
 
             if (addedNewMessage) {
 
@@ -747,7 +811,9 @@
                     messages.clientHeight;
 
 
-                if (distanceFromBottom < 100) {
+                if (
+                    distanceFromBottom < 100
+                ) {
 
                     messages.scrollTop =
                         messages.scrollHeight;
@@ -764,11 +830,12 @@
                 "Could not connect to the chat.";
 
         }
+
     }
 
 
     // ==========================================
-    // DISPLAY MESSAGE
+    // ADD MESSAGE
     // ==========================================
 
     function addMessage(message) {
@@ -780,8 +847,6 @@
             "message";
 
 
-        // Username
-
         const username =
             document.createElement("span");
 
@@ -791,8 +856,6 @@
         username.textContent =
             message.username;
 
-
-        // Text
 
         const text =
             document.createElement("span");
@@ -805,8 +868,6 @@
 
         }
 
-
-        // Time
 
         const time =
             document.createElement("span");
@@ -825,20 +886,24 @@
             date.toLocaleTimeString();
 
 
-        div.appendChild(username);
+        div.appendChild(
+            username
+        );
 
 
         if (message.message) {
 
-            div.appendChild(text);
+            div.appendChild(
+                text
+            );
 
         }
 
 
-        div.appendChild(time);
+        div.appendChild(
+            time
+        );
 
-
-        // Image
 
         if (message.image_url) {
 
@@ -858,12 +923,16 @@
                 "lazy";
 
 
-            div.appendChild(image);
+            div.appendChild(
+                image
+            );
 
         }
 
 
-        messages.appendChild(div);
+        messages.appendChild(
+            div
+        );
 
     }
 
@@ -955,6 +1024,7 @@
     async function sendMessage() {
 
         chatError.textContent = "";
+
         uploadStatus.textContent = "";
 
 
@@ -979,6 +1049,7 @@
                 "Enter a username.";
 
             return;
+
         }
 
 
@@ -991,6 +1062,7 @@
                 "Enter a message or choose an image.";
 
             return;
+
         }
 
 
@@ -1004,8 +1076,6 @@
                 null;
 
 
-            // Upload image first.
-
             if (file) {
 
                 uploadStatus.textContent =
@@ -1013,7 +1083,9 @@
 
 
                 imagePath =
-                    await uploadImage(file);
+                    await uploadImage(
+                        file
+                    );
 
 
                 uploadStatus.textContent =
@@ -1021,8 +1093,6 @@
 
             }
 
-
-            // Send message and image path.
 
             const response =
                 await fetch(
@@ -1057,6 +1127,7 @@
                 sessionExpired();
 
                 return;
+
             }
 
 
@@ -1070,17 +1141,19 @@
                     "Could not send message.";
 
                 return;
+
             }
 
 
-            // Clear inputs.
+            messageInput.value =
+                "";
 
-            messageInput.value = "";
-            imageInput.value = "";
-            uploadStatus.textContent = "";
+            imageInput.value =
+                "";
 
+            uploadStatus.textContent =
+                "";
 
-            // Refresh chat.
 
             await loadMessages();
 
@@ -1101,6 +1174,7 @@
                 false;
 
         }
+
     }
 
 
@@ -1115,10 +1189,134 @@
         function(event) {
 
             if (event.key === "Enter") {
+
                 sendMessage();
+
             }
 
         }
+    );
+
+
+    // ==========================================
+    // CLEAR CHAT
+    // ==========================================
+
+    async function clearChat() {
+
+        if (!sessionToken) {
+            return;
+        }
+
+
+        const confirmed =
+            confirm(
+                "Clear the entire chat?\n\n" +
+                "This will permanently delete all messages and uploaded images."
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        clearButton.disabled =
+            true;
+
+        clearButton.textContent =
+            "Clearing...";
+
+        chatError.textContent =
+            "";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    CLEAR_CHAT_FUNCTION_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Authorization":
+                                `Bearer ${sessionToken}`,
+
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({})
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (response.status === 401) {
+
+                sessionExpired();
+
+                return;
+
+            }
+
+
+            if (!response.ok) {
+
+                chatError.textContent =
+                    data.error ||
+                    "Could not clear chat.";
+
+                return;
+
+            }
+
+
+            // Remove everything currently
+            // displayed.
+
+            messages.innerHTML =
+                "";
+
+            displayedMessageIds.clear();
+
+
+            // Make sure the chat is at the
+            // top/empty state.
+
+            messages.scrollTop =
+                0;
+
+
+            await loadMessages();
+
+        } catch (err) {
+
+            console.error(err);
+
+            chatError.textContent =
+                "Could not connect to the clear-chat function.";
+
+        } finally {
+
+            clearButton.disabled =
+                false;
+
+            clearButton.textContent =
+                "Clear Chat";
+
+        }
+
+    }
+
+
+    clearButton.addEventListener(
+        "click",
+        clearChat
     );
 
 
@@ -1133,7 +1331,8 @@
 
         displayedMessageIds.clear();
 
-        messages.innerHTML = "";
+        messages.innerHTML =
+            "";
 
         chatBox.style.display =
             "none";
@@ -1141,7 +1340,8 @@
         loginBox.style.display =
             "block";
 
-        passwordInput.value = "";
+        passwordInput.value =
+            "";
 
         loginError.textContent =
             "Your session expired. Enter the password again.";
@@ -1152,7 +1352,7 @@
 
 
     // ==========================================
-    // REFRESH MESSAGES
+    // REFRESH
     // ==========================================
 
     setInterval(
