@@ -356,7 +356,8 @@
 
         try {
 
-            const parsed = new URL(url);
+            const parsed =
+                new URL(url);
 
             if (
                 parsed.hostname === "youtube.com" ||
@@ -508,8 +509,12 @@
             return;
         }
 
-        loginButton.disabled = true;
-        loginButton.textContent = "Checking...";
+        loginButton.disabled =
+            true;
+
+        loginButton.textContent =
+            "Checking...";
+
 
         try {
 
@@ -532,8 +537,10 @@
                     }
                 );
 
+
             const data =
                 await response.json();
+
 
             if (
                 !response.ok ||
@@ -552,10 +559,10 @@
                 return;
             }
 
-            // Keep token only in memory.
 
             sessionToken =
                 data.token;
+
 
             loginBox.style.display =
                 "none";
@@ -563,7 +570,9 @@
             chatBox.style.display =
                 "block";
 
+
             await loadMessages();
+
 
             usernameInput.focus();
 
@@ -616,6 +625,20 @@
 
         chatError.textContent = "";
 
+
+        // Remember where the user was before
+        // refreshing the messages.
+
+        const wasAtBottom =
+            messages.scrollHeight -
+            messages.scrollTop -
+            messages.clientHeight <
+            50;
+
+        const oldScrollTop =
+            messages.scrollTop;
+
+
         try {
 
             const response =
@@ -638,8 +661,10 @@
                     }
                 );
 
+
             const data =
                 await response.json();
+
 
             if (response.status === 401) {
 
@@ -647,6 +672,7 @@
 
                 return;
             }
+
 
             if (!response.ok) {
 
@@ -657,7 +683,9 @@
                 return;
             }
 
+
             messages.innerHTML = "";
+
 
             for (const message of data) {
 
@@ -665,8 +693,24 @@
 
             }
 
-            messages.scrollTop =
-                messages.scrollHeight;
+
+            // If the user was already at the bottom,
+            // keep them at the bottom.
+
+            if (wasAtBottom) {
+
+                messages.scrollTop =
+                    messages.scrollHeight;
+
+            } else {
+
+                // Otherwise keep their previous
+                // reading position.
+
+                messages.scrollTop =
+                    oldScrollTop;
+
+            }
 
         } catch (err) {
 
@@ -709,6 +753,7 @@
         const text =
             document.createElement("span");
 
+
         if (message.message) {
 
             text.textContent =
@@ -725,10 +770,12 @@
         time.className =
             "message-time";
 
+
         const date =
             new Date(
                 message.created_at
             );
+
 
         time.textContent =
             date.toLocaleTimeString();
@@ -736,9 +783,13 @@
 
         div.appendChild(username);
 
+
         if (message.message) {
+
             div.appendChild(text);
+
         }
+
 
         div.appendChild(time);
 
@@ -762,12 +813,14 @@
             image.loading =
                 "lazy";
 
+
             div.appendChild(image);
 
         }
 
 
         messages.appendChild(div);
+
     }
 
 
@@ -778,18 +831,23 @@
     async function uploadImage(file) {
 
         if (!sessionToken) {
+
             throw new Error(
                 "Not authenticated."
             );
+
         }
+
 
         const formData =
             new FormData();
+
 
         formData.append(
             "action",
             "upload"
         );
+
 
         formData.append(
             "file",
@@ -824,6 +882,7 @@
             throw new Error(
                 "Session expired."
             );
+
         }
 
 
@@ -836,10 +895,12 @@
                 data.error ||
                 "Could not upload image."
             );
+
         }
 
 
         return data.path;
+
     }
 
 
@@ -851,6 +912,7 @@
 
         chatError.textContent = "";
         uploadStatus.textContent = "";
+
 
         if (!sessionToken) {
             return;
@@ -898,15 +960,17 @@
                 null;
 
 
-            // Upload image first
+            // Upload image first.
 
             if (file) {
 
                 uploadStatus.textContent =
                     "Uploading image...";
 
+
                 imagePath =
                     await uploadImage(file);
+
 
                 uploadStatus.textContent =
                     "Image uploaded.";
@@ -914,7 +978,7 @@
             }
 
 
-            // Send message + image path
+            // Send message and image path.
 
             const response =
                 await fetch(
@@ -965,18 +1029,13 @@
             }
 
 
-            // Clear inputs
-
             messageInput.value = "";
-
             imageInput.value = "";
-
             uploadStatus.textContent = "";
 
 
-            // Refresh chat
-
             await loadMessages();
+
 
             messageInput.focus();
 
@@ -1044,11 +1103,15 @@
     // REFRESH MESSAGES
     // ==========================================
 
+    // Check for new messages every 5 seconds.
+
     setInterval(
         function() {
 
             if (sessionToken) {
+
                 loadMessages();
+
             }
 
         },
