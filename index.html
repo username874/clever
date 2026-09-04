@@ -35,13 +35,19 @@
             font: inherit;
         }
 
+        a {
+            color: inherit;
+        }
+
 
         /* =====================================
            PUBLIC WEBSITE
         ===================================== */
 
         .site-header {
-            background: white;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid #e5e9f0;
             position: sticky;
             top: 0;
@@ -49,7 +55,7 @@
         }
 
         .header-inner {
-            width: min(1120px, 92%);
+            width: min(1160px, 92%);
             margin: auto;
             height: 72px;
             display: flex;
@@ -73,9 +79,15 @@
             border-radius: 11px;
             display: grid;
             place-items: center;
-            background: #315efb;
+            background: linear-gradient(
+                135deg,
+                #315efb,
+                #6c7dff
+            );
             color: white;
             font-size: 19px;
+            box-shadow:
+                0 6px 16px rgba(49, 94, 251, 0.22);
         }
 
         .nav {
@@ -89,6 +101,7 @@
             text-decoration: none;
             font-size: 14px;
             font-weight: 600;
+            transition: color 0.15s ease;
         }
 
         .nav a:hover {
@@ -101,7 +114,19 @@
         ===================================== */
 
         .hero {
+            position: relative;
+            overflow: hidden;
             background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(108, 125, 255, 0.12),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 10% 80%,
+                    rgba(53, 185, 121, 0.08),
+                    transparent 28%
+                ),
                 linear-gradient(
                     135deg,
                     #eef3ff 0%,
@@ -112,57 +137,120 @@
         }
 
         .hero-inner {
-            width: min(1120px, 92%);
+            width: min(1160px, 92%);
             margin: auto;
-            padding: 78px 0 72px;
+            padding: 88px 0 82px;
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 55px;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 65px;
             align-items: center;
         }
 
         .eyebrow {
-            display: inline-block;
-            background: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(255, 255, 255, 0.8);
             border: 1px solid #dce4f4;
             color: #315efb;
             border-radius: 999px;
             padding: 7px 13px;
             font-size: 12px;
             font-weight: 700;
-            margin-bottom: 18px;
+            margin-bottom: 19px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #35b979;
         }
 
         .hero h1 {
             margin: 0;
-            font-size: clamp(38px, 5vw, 62px);
-            line-height: 1.04;
-            letter-spacing: -2px;
-            max-width: 650px;
+            font-size: clamp(40px, 5vw, 66px);
+            line-height: 1.02;
+            letter-spacing: -2.8px;
+            max-width: 700px;
         }
 
         .hero p {
             color: #5e697b;
             font-size: 18px;
-            line-height: 1.7;
-            max-width: 590px;
-            margin: 22px 0 0;
+            line-height: 1.75;
+            max-width: 610px;
+            margin: 23px 0 0;
         }
 
-        .hero-card {
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .hero-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px 19px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            transition:
+                transform 0.18s ease,
+                box-shadow 0.18s ease,
+                background 0.18s ease;
+        }
+
+        .hero-button.primary {
+            background: #315efb;
+            color: white;
+            box-shadow:
+                0 8px 20px rgba(49, 94, 251, 0.18);
+        }
+
+        .hero-button.primary:hover {
+            background: #2449d7;
+            transform: translateY(-2px);
+            box-shadow:
+                0 12px 25px rgba(49, 94, 251, 0.23);
+        }
+
+        .hero-button.secondary {
             background: white;
+            color: #344054;
+            border: 1px solid #dce2eb;
+        }
+
+        .hero-button.secondary:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 8px 20px rgba(32, 49, 84, 0.07);
+        }
+
+
+        /* =====================================
+           HERO DASHBOARD CARD
+        ===================================== */
+
+        .hero-card {
+            background: rgba(255, 255, 255, 0.94);
             border: 1px solid #e1e6ef;
-            border-radius: 20px;
+            border-radius: 22px;
             padding: 25px;
             box-shadow:
-                0 18px 45px rgba(32, 49, 84, 0.08);
+                0 25px 60px rgba(32, 49, 84, 0.11);
         }
 
         .hero-card-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         .hero-card-title {
@@ -170,94 +258,241 @@
             font-weight: 750;
         }
 
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #687386;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
         .status-dot {
-            width: 9px;
-            height: 9px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: #35b979;
+            box-shadow:
+                0 0 0 4px rgba(53, 185, 121, 0.1);
         }
 
-        .mini-lines {
-            display: grid;
-            gap: 12px;
+        .learning-progress {
+            padding: 18px;
+            background: #f7f9fd;
+            border: 1px solid #edf0f5;
+            border-radius: 13px;
         }
 
-        .mini-line {
-            height: 12px;
-            border-radius: 999px;
-            background: #edf0f5;
-        }
-
-        .mini-line.short {
-            width: 63%;
-        }
-
-        .mini-line.medium {
-            width: 81%;
-        }
-
-        .hero-stat {
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 1px solid #edf0f5;
+        .progress-heading {
             display: flex;
             justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: #687386;
+        }
+
+        .progress-heading strong {
+            color: #172033;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e9f0;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 72%;
+            height: 100%;
+            background:
+                linear-gradient(
+                    90deg,
+                    #315efb,
+                    #6c7dff
+                );
+            border-radius: inherit;
+        }
+
+        .hero-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .hero-stat-box {
+            padding: 15px 12px;
+            border: 1px solid #edf0f5;
+            border-radius: 11px;
+            background: white;
+        }
+
+        .hero-stat-number {
+            display: block;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-stat-label {
+            display: block;
+            margin-top: 4px;
+            color: #8992a2;
+            font-size: 10px;
+        }
+
+        .hero-card-bottom {
+            margin-top: 17px;
+            padding-top: 17px;
+            border-top: 1px solid #edf0f5;
             color: #697386;
-            font-size: 13px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
         }
 
 
         /* =====================================
-           RESOURCES
+           STATS STRIP
+        ===================================== */
+
+        .stats-section {
+            background: white;
+            border-bottom: 1px solid #e5e9f0;
+        }
+
+        .stats-inner {
+            width: min(1160px, 92%);
+            margin: auto;
+            padding: 27px 0;
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+        }
+
+        .stat-item {
+            padding: 4px 25px;
+            border-right: 1px solid #e7ebf1;
+        }
+
+        .stat-item:first-child {
+            padding-left: 0;
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-item strong {
+            display: block;
+            font-size: 21px;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-item span {
+            display: block;
+            margin-top: 4px;
+            color: #7a8495;
+            font-size: 12px;
+        }
+
+
+        /* =====================================
+           GENERAL SECTIONS
         ===================================== */
 
         .section {
-            width: min(1120px, 92%);
+            width: min(1160px, 92%);
             margin: auto;
-            padding: 68px 0;
+            padding: 76px 0;
         }
 
         .section-heading {
-            margin-bottom: 28px;
+            margin-bottom: 30px;
+        }
+
+        .section-heading.center {
+            text-align: center;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-kicker {
+            color: #315efb;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 9px;
         }
 
         .section-heading h2 {
-            margin: 0 0 8px;
-            font-size: 30px;
-            letter-spacing: -0.7px;
+            margin: 0 0 9px;
+            font-size: 31px;
+            letter-spacing: -0.9px;
         }
 
         .section-heading p {
             margin: 0;
             color: #687386;
+            line-height: 1.65;
         }
+
+
+        /* =====================================
+           SUBJECTS
+        ===================================== */
 
         .resource-grid {
             display: grid;
             grid-template-columns:
                 repeat(4, 1fr);
-            gap: 18px;
+            gap: 17px;
         }
 
         .resource-card {
+            position: relative;
+            overflow: hidden;
             background: white;
             border: 1px solid #e1e6ef;
-            border-radius: 15px;
+            border-radius: 16px;
             padding: 23px;
             transition:
                 transform 0.18s ease,
-                box-shadow 0.18s ease;
+                box-shadow 0.18s ease,
+                border-color 0.18s ease;
+        }
+
+        .resource-card::after {
+            content: "→";
+            position: absolute;
+            right: 20px;
+            bottom: 18px;
+            color: #b3bccb;
+            font-size: 17px;
+            transition:
+                transform 0.18s ease,
+                color 0.18s ease;
         }
 
         .resource-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            border-color: #d5ddf2;
             box-shadow:
-                0 12px 30px rgba(32, 49, 84, 0.08);
+                0 15px 35px rgba(32, 49, 84, 0.09);
+        }
+
+        .resource-card:hover::after {
+            transform: translateX(4px);
+            color: #315efb;
         }
 
         .resource-icon {
-            width: 43px;
-            height: 43px;
+            width: 45px;
+            height: 45px;
             border-radius: 12px;
             display: grid;
             place-items: center;
@@ -273,9 +508,275 @@
 
         .resource-card p {
             margin: 0;
+            padding-right: 18px;
             color: #687386;
             font-size: 14px;
             line-height: 1.6;
+        }
+
+
+        /* =====================================
+           FEATURED PATHS
+        ===================================== */
+
+        .paths-section {
+            background: white;
+            border-top: 1px solid #e5e9f0;
+            border-bottom: 1px solid #e5e9f0;
+        }
+
+        .path-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .path-card {
+            border: 1px solid #e1e6ef;
+            border-radius: 16px;
+            background: #fafbfc;
+            overflow: hidden;
+            transition:
+                transform 0.18s ease,
+                box-shadow 0.18s ease;
+        }
+
+        .path-card:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 15px 35px rgba(32, 49, 84, 0.08);
+        }
+
+        .path-banner {
+            height: 105px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-end;
+            font-size: 27px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #edf2ff,
+                    #e7f0ff
+                );
+        }
+
+        .path-banner.green {
+            background:
+                linear-gradient(
+                    135deg,
+                    #edf9f3,
+                    #e4f5ed
+                );
+        }
+
+        .path-banner.gold {
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff8e8,
+                    #fff2d5
+                );
+        }
+
+        .path-content {
+            padding: 20px;
+        }
+
+        .path-tag {
+            display: inline-block;
+            padding: 5px 8px;
+            background: white;
+            border: 1px solid #e4e8ef;
+            border-radius: 6px;
+            color: #687386;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .path-content h3 {
+            margin: 12px 0 7px;
+            font-size: 17px;
+        }
+
+        .path-content p {
+            margin: 0;
+            color: #687386;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .path-meta {
+            display: flex;
+            gap: 14px;
+            margin-top: 17px;
+            color: #8992a2;
+            font-size: 11px;
+        }
+
+
+        /* =====================================
+           DAILY LEARNING
+        ===================================== */
+
+        .daily-layout {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 25px;
+        }
+
+        .daily-card {
+            background:
+                linear-gradient(
+                    135deg,
+                    #172033,
+                    #263452
+                );
+            color: white;
+            border-radius: 18px;
+            padding: 30px;
+            min-height: 245px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .daily-card::after {
+            content: "?";
+            position: absolute;
+            right: 25px;
+            bottom: -28px;
+            font-size: 180px;
+            line-height: 1;
+            font-weight: 900;
+            color: rgba(255,255,255,0.035);
+        }
+
+        .daily-label {
+            color: #aebcf7;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .daily-card h3 {
+            position: relative;
+            z-index: 1;
+            margin: 18px 0 10px;
+            max-width: 600px;
+            font-size: 25px;
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+        }
+
+        .daily-card p {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            max-width: 620px;
+            color: #c6cedc;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .daily-note {
+            margin-top: 22px;
+            display: inline-block;
+            color: #d8def0;
+            font-size: 11px;
+        }
+
+        .tips-card {
+            background: white;
+            border: 1px solid #e1e6ef;
+            border-radius: 18px;
+            padding: 27px;
+        }
+
+        .tips-card h3 {
+            margin: 0 0 19px;
+            font-size: 19px;
+        }
+
+        .tip {
+            display: flex;
+            gap: 12px;
+            padding: 13px 0;
+            border-bottom: 1px solid #edf0f5;
+        }
+
+        .tip:last-child {
+            border-bottom: none;
+        }
+
+        .tip-number {
+            width: 27px;
+            height: 27px;
+            flex: 0 0 27px;
+            border-radius: 8px;
+            background: #eef3ff;
+            color: #315efb;
+            display: grid;
+            place-items: center;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .tip strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 3px;
+        }
+
+        .tip span {
+            color: #7a8495;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+
+        /* =====================================
+           HOW IT WORKS
+        ===================================== */
+
+        .process-section {
+            background: #f0f3f8;
+            border-top: 1px solid #e4e8ef;
+            border-bottom: 1px solid #e4e8ef;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .process-card {
+            background: white;
+            border: 1px solid #e1e6ef;
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .process-number {
+            color: #315efb;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .process-card h3 {
+            margin: 17px 0 8px;
+            font-size: 17px;
+        }
+
+        .process-card p {
+            margin: 0;
+            color: #687386;
+            font-size: 13px;
+            line-height: 1.65;
         }
 
 
@@ -285,26 +786,50 @@
 
         .media-section {
             background: white;
-            border-top: 1px solid #e5e9f0;
-            border-bottom: 1px solid #e5e9f0;
         }
 
         .media-layout {
             display: grid;
-            grid-template-columns: 0.8fr 1.2fr;
-            gap: 40px;
+            grid-template-columns: 0.75fr 1.25fr;
+            gap: 50px;
             align-items: center;
         }
 
         .media-info h2 {
             margin: 0 0 12px;
-            font-size: 30px;
+            font-size: 31px;
+            letter-spacing: -0.8px;
         }
 
         .media-info p {
             color: #687386;
-            line-height: 1.7;
+            line-height: 1.75;
             margin: 0;
+        }
+
+        .media-features {
+            margin-top: 24px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .media-feature {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            color: #5e697b;
+            font-size: 13px;
+        }
+
+        .media-feature span {
+            width: 25px;
+            height: 25px;
+            border-radius: 7px;
+            display: grid;
+            place-items: center;
+            background: #eef3ff;
+            color: #315efb;
+            font-size: 11px;
         }
 
         .youtube-box {
@@ -327,6 +852,9 @@
             outline: none;
             background: #fafbfc;
             color: #172033;
+            transition:
+                border-color 0.15s ease,
+                background 0.15s ease;
         }
 
         #urlInput:focus {
@@ -342,10 +870,14 @@
             border-radius: 9px;
             cursor: pointer;
             font-weight: 700;
+            transition:
+                background 0.15s ease,
+                transform 0.15s ease;
         }
 
         #playButton:hover {
             background: #2449d7;
+            transform: translateY(-1px);
         }
 
         #error {
@@ -363,13 +895,68 @@
             border-radius: 13px;
             overflow: hidden;
             box-shadow:
-                0 12px 35px rgba(22, 31, 48, 0.13);
+                0 15px 40px rgba(22, 31, 48, 0.14);
         }
 
         iframe {
             width: 100%;
             height: 100%;
             border: none;
+        }
+
+
+        /* =====================================
+           FINAL CTA
+        ===================================== */
+
+        .cta-section {
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef3ff,
+                    #f7faff
+                );
+            border-top: 1px solid #e3e8f2;
+            border-bottom: 1px solid #e3e8f2;
+        }
+
+        .cta {
+            width: min(800px, 92%);
+            margin: auto;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta h2 {
+            margin: 0 0 12px;
+            font-size: 34px;
+            letter-spacing: -1px;
+        }
+
+        .cta p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: #687386;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 13px 20px;
+            background: #315efb;
+            color: white;
+            text-decoration: none;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow:
+                0 8px 20px rgba(49, 94, 251, 0.18);
+        }
+
+        .cta-button:hover {
+            background: #2449d7;
         }
 
 
@@ -383,22 +970,61 @@
         }
 
         .footer-inner {
-            width: min(1120px, 92%);
+            width: min(1160px, 92%);
             margin: auto;
-            padding: 30px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
+            padding: 48px 0 30px;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 50px;
+            padding-bottom: 38px;
         }
 
         .footer-brand {
             color: white;
-            font-weight: 700;
+            font-weight: 750;
+            font-size: 19px;
+            margin-bottom: 11px;
         }
 
-        .footer-text {
+        .footer-description {
+            max-width: 350px;
+            color: #8994a7;
             font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .footer-column h4 {
+            color: white;
+            margin: 0 0 14px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+        }
+
+        .footer-column a {
+            display: block;
+            width: fit-content;
+            color: #9ba5b7;
+            text-decoration: none;
+            font-size: 13px;
+            margin-bottom: 9px;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #2a3448;
+            padding-top: 22px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            font-size: 12px;
+            color: #798496;
         }
 
 
@@ -650,11 +1276,15 @@
            MOBILE
         ===================================== */
 
-        @media (max-width: 850px) {
+        @media (max-width: 950px) {
 
             .hero-inner {
                 grid-template-columns: 1fr;
-                gap: 35px;
+                gap: 40px;
+            }
+
+            .hero-card {
+                max-width: 650px;
             }
 
             .resource-grid {
@@ -662,14 +1292,23 @@
                     repeat(2, 1fr);
             }
 
+            .daily-layout {
+                grid-template-columns: 1fr;
+            }
+
             .media-layout {
                 grid-template-columns: 1fr;
+            }
+
+            .footer-main {
+                grid-template-columns:
+                    1fr 1fr;
             }
 
         }
 
 
-        @media (max-width: 650px) {
+        @media (max-width: 700px) {
 
             .header-inner {
                 height: 62px;
@@ -680,19 +1319,38 @@
             }
 
             .hero-inner {
-                padding: 55px 0;
+                padding: 60px 0;
             }
 
             .hero h1 {
-                letter-spacing: -1.5px;
+                letter-spacing: -2px;
             }
 
-            .section {
-                padding: 50px 0;
+            .stats-inner {
+                grid-template-columns:
+                    repeat(2, 1fr);
+                gap: 20px 0;
+            }
+
+            .stat-item {
+                border-right: none;
+            }
+
+            .stat-item:nth-child(odd) {
+                border-right: 1px solid #e7ebf1;
             }
 
             .resource-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .path-grid,
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 58px 0;
             }
 
             .input-area {
@@ -703,9 +1361,13 @@
                 width: 100%;
             }
 
-            .footer-inner {
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
                 flex-direction: column;
-                align-items: flex-start;
             }
 
             #chatInputArea {
@@ -736,6 +1398,34 @@
 
         }
 
+
+        @media (max-width: 480px) {
+
+            .hero-stat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-card-bottom {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .stats-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item,
+            .stat-item:nth-child(odd) {
+                border-right: none;
+                padding-left: 0;
+            }
+
+            .cta h2 {
+                font-size: 28px;
+            }
+
+        }
+
     </style>
 </head>
 
@@ -748,6 +1438,8 @@
 
 <div id="publicSite">
 
+    <!-- HEADER -->
+
     <header class="site-header">
 
         <div class="header-inner">
@@ -758,8 +1450,9 @@
             </a>
 
             <nav class="nav">
-                <a href="#resources">Resources</a>
-                <a href="#media">Learning Videos</a>
+                <a href="#resources">Subjects</a>
+                <a href="#paths">Learning Paths</a>
+                <a href="#media">Videos</a>
                 <a href="#about">About</a>
             </nav>
 
@@ -789,39 +1482,117 @@
                     Explore educational resources, discover
                     interesting ideas, and use interactive
                     media to make learning more engaging.
+                    Learn at your own pace and follow the
+                    subjects that interest you most.
                 </p>
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="#resources"
+                        class="hero-button primary">
+                        Explore Subjects
+                    </a>
+
+                    <a
+                        href="#media"
+                        class="hero-button secondary">
+                        Watch & Learn
+                    </a>
+
+                </div>
 
             </div>
 
+
+            <!-- HERO DASHBOARD -->
 
             <div class="hero-card">
 
                 <div class="hero-card-top">
 
                     <span class="hero-card-title">
-                        Featured learning resource
+                        Learning overview
                     </span>
 
-                    <span class="status-dot"></span>
+                    <span class="status">
+                        <span class="status-dot"></span>
+                        Ready to explore
+                    </span>
 
                 </div>
 
-                <div class="mini-lines">
 
-                    <div class="mini-line"></div>
+                <div class="learning-progress">
 
-                    <div class="mini-line medium"></div>
+                    <div class="progress-heading">
 
-                    <div class="mini-line"></div>
+                        <strong>
+                            Explore today's knowledge
+                        </strong>
 
-                    <div class="mini-line short"></div>
+                        <span>
+                            72%
+                        </span>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div class="progress-fill"></div>
+
+                    </div>
 
                 </div>
 
-                <div class="hero-stat">
+
+                <div class="hero-stat-grid">
+
+                    <div class="hero-stat-box">
+
+                        <span class="hero-stat-number">
+                            4
+                        </span>
+
+                        <span class="hero-stat-label">
+                            Core subjects
+                        </span>
+
+                    </div>
+
+
+                    <div class="hero-stat-box">
+
+                        <span class="hero-stat-number">
+                            ∞
+                        </span>
+
+                        <span class="hero-stat-label">
+                            Questions to explore
+                        </span>
+
+                    </div>
+
+
+                    <div class="hero-stat-box">
+
+                        <span class="hero-stat-number">
+                            24/7
+                        </span>
+
+                        <span class="hero-stat-label">
+                            Independent learning
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-card-bottom">
 
                     <span>
-                        Independent learning
+                        Curiosity starts here.
                     </span>
 
                     <span>
@@ -837,7 +1608,69 @@
     </section>
 
 
-    <!-- RESOURCES -->
+    <!-- STATS -->
+
+    <section class="stats-section">
+
+        <div class="stats-inner">
+
+            <div class="stat-item">
+
+                <strong>
+                    4+
+                </strong>
+
+                <span>
+                    Core learning areas
+                </span>
+
+            </div>
+
+
+            <div class="stat-item">
+
+                <strong>
+                    100%
+                </strong>
+
+                <span>
+                    Self-paced exploration
+                </span>
+
+            </div>
+
+
+            <div class="stat-item">
+
+                <strong>
+                    ∞
+                </strong>
+
+                <span>
+                    Things worth discovering
+                </span>
+
+            </div>
+
+
+            <div class="stat-item">
+
+                <strong>
+                    1
+                </strong>
+
+                <span>
+                    Curious mind required
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SUBJECTS -->
 
     <section
         class="section"
@@ -845,13 +1678,17 @@
 
         <div class="section-heading">
 
+            <div class="section-kicker">
+                Explore
+            </div>
+
             <h2>
                 Explore learning topics
             </h2>
 
             <p>
-                Browse a variety of subjects and areas
-                of knowledge.
+                Start with a subject that interests you
+                and follow your curiosity from there.
             </p>
 
         </div>
@@ -871,7 +1708,8 @@
 
                 <p>
                     Explore physics, chemistry, biology,
-                    space, and the natural world.
+                    space, experiments, and the natural
+                    world around us.
                 </p>
 
             </article>
@@ -889,7 +1727,8 @@
 
                 <p>
                     Learn about computers, programming,
-                    engineering, and modern technology.
+                    engineering, digital systems, and
+                    modern technology.
                 </p>
 
             </article>
@@ -906,8 +1745,9 @@
                 </h3>
 
                 <p>
-                    Discover places, environments,
-                    cultures, and how our world works.
+                    Discover countries, environments,
+                    landscapes, cultures, maps, and
+                    how our world fits together.
                 </p>
 
             </article>
@@ -924,11 +1764,364 @@
                 </h3>
 
                 <p>
-                    Find ideas for studying, research,
-                    organization, and independent learning.
+                    Discover ways to organize information,
+                    research effectively, and make
+                    independent learning easier.
                 </p>
 
             </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- LEARNING PATHS -->
+
+    <section
+        class="paths-section"
+        id="paths">
+
+        <div class="section">
+
+            <div class="section-heading center">
+
+                <div class="section-kicker">
+                    Learning paths
+                </div>
+
+                <h2>
+                    Follow a path of discovery
+                </h2>
+
+                <p>
+                    Combine related ideas into a larger
+                    learning journey and build a broader
+                    understanding of the subject.
+                </p>
+
+            </div>
+
+
+            <div class="path-grid">
+
+                <article class="path-card">
+
+                    <div class="path-banner">
+                        🚀
+                    </div>
+
+                    <div class="path-content">
+
+                        <span class="path-tag">
+                            Science
+                        </span>
+
+                        <h3>
+                            Understanding Space
+                        </h3>
+
+                        <p>
+                            Explore planets, stars, galaxies,
+                            gravity, and the science behind
+                            space exploration.
+                        </p>
+
+                        <div class="path-meta">
+                            <span>5 topics</span>
+                            <span>Beginner</span>
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="path-card">
+
+                    <div class="path-banner green">
+                        🖥️
+                    </div>
+
+                    <div class="path-content">
+
+                        <span class="path-tag">
+                            Technology
+                        </span>
+
+                        <h3>
+                            Inside a Computer
+                        </h3>
+
+                        <p>
+                            Learn how hardware, software,
+                            operating systems, networks,
+                            and code work together.
+                        </p>
+
+                        <div class="path-meta">
+                            <span>6 topics</span>
+                            <span>Beginner</span>
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="path-card">
+
+                    <div class="path-banner gold">
+                        🧭
+                    </div>
+
+                    <div class="path-content">
+
+                        <span class="path-tag">
+                            Geography
+                        </span>
+
+                        <h3>
+                            Our Changing Planet
+                        </h3>
+
+                        <p>
+                            Explore climates, landscapes,
+                            natural resources, populations,
+                            and the forces shaping Earth.
+                        </p>
+
+                        <div class="path-meta">
+                            <span>7 topics</span>
+                            <span>Beginner</span>
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DAILY LEARNING -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <div class="section-kicker">
+                Keep exploring
+            </div>
+
+            <h2>
+                A little knowledge goes a long way
+            </h2>
+
+            <p>
+                Learning doesn't have to happen all at once.
+                Small discoveries can lead to much bigger
+                questions.
+            </p>
+
+        </div>
+
+
+        <div class="daily-layout">
+
+            <div class="daily-card">
+
+                <span class="daily-label">
+                    Question to explore
+                </span>
+
+                <h3>
+                    Why does the sky appear blue during
+                    the day?
+                </h3>
+
+                <p>
+                    Questions like this are where science
+                    begins. Explore the interaction between
+                    sunlight and Earth's atmosphere to find
+                    out what is happening above us.
+                </p>
+
+                <span class="daily-note">
+                    Science • Atmosphere • Light
+                </span>
+
+            </div>
+
+
+            <div class="tips-card">
+
+                <h3>
+                    Better learning habits
+                </h3>
+
+
+                <div class="tip">
+
+                    <div class="tip-number">
+                        1
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Ask questions
+                        </strong>
+
+                        <span>
+                            Don't just memorize an answer.
+                            Find out why it works.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="tip">
+
+                    <div class="tip-number">
+                        2
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Connect ideas
+                        </strong>
+
+                        <span>
+                            Relating new information to
+                            things you already know makes
+                            it easier to understand.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="tip">
+
+                    <div class="tip-number">
+                        3
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Take your time
+                        </strong>
+
+                        <span>
+                            Understanding something deeply
+                            is more valuable than rushing
+                            through it.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+
+    <section class="process-section">
+
+        <div class="section">
+
+            <div class="section-heading center">
+
+                <div class="section-kicker">
+                    Simple learning
+                </div>
+
+                <h2>
+                    Learn at your own pace
+                </h2>
+
+                <p>
+                    There is no single correct way to learn.
+                    Explore, watch, question, and come back
+                    whenever you want.
+                </p>
+
+            </div>
+
+
+            <div class="process-grid">
+
+                <article class="process-card">
+
+                    <span class="process-number">
+                        01
+                    </span>
+
+                    <h3>
+                        Choose a topic
+                    </h3>
+
+                    <p>
+                        Start with something you're already
+                        interested in, or discover a subject
+                        you've never explored before.
+                    </p>
+
+                </article>
+
+
+                <article class="process-card">
+
+                    <span class="process-number">
+                        02
+                    </span>
+
+                    <h3>
+                        Explore ideas
+                    </h3>
+
+                    <p>
+                        Use resources and educational videos
+                        to learn the fundamentals and discover
+                        new questions.
+                    </p>
+
+                </article>
+
+
+                <article class="process-card">
+
+                    <span class="process-number">
+                        03
+                    </span>
+
+                    <h3>
+                        Keep going
+                    </h3>
+
+                    <p>
+                        Learning is an ongoing process. Follow
+                        interesting ideas wherever they lead
+                        and keep building your knowledge.
+                    </p>
+
+                </article>
+
+            </div>
 
         </div>
 
@@ -947,15 +2140,58 @@
 
                 <div class="media-info">
 
+                    <div class="section-kicker">
+                        Multimedia learning
+                    </div>
+
                     <h2>
-                        Learning videos
+                        Learn through video
                     </h2>
 
                     <p>
-                        Use the video player to watch
-                        educational content and explore
-                        topics that interest you.
+                        Sometimes seeing an idea explained
+                        visually makes all the difference.
+                        Paste a YouTube link below and use
+                        the built-in player to explore
+                        educational content.
                     </p>
+
+
+                    <div class="media-features">
+
+                        <div class="media-feature">
+
+                            <span>✓</span>
+
+                            <div>
+                                Watch explanations and lessons
+                            </div>
+
+                        </div>
+
+
+                        <div class="media-feature">
+
+                            <span>✓</span>
+
+                            <div>
+                                Explore topics at your own pace
+                            </div>
+
+                        </div>
+
+
+                        <div class="media-feature">
+
+                            <span>✓</span>
+
+                            <div>
+                                Return to interesting ideas anytime
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -999,18 +2235,119 @@
     </section>
 
 
+    <!-- FINAL CTA -->
+
+    <section class="cta-section">
+
+        <div class="cta">
+
+            <div class="section-kicker">
+                Keep learning
+            </div>
+
+            <h2>
+                Stay curious.
+            </h2>
+
+            <p>
+                The best learning often starts with a simple
+                question. Explore a subject, watch something
+                interesting, and see where your curiosity takes
+                you next.
+            </p>
+
+            <a
+                href="#resources"
+                class="cta-button">
+                Explore Learning Topics
+            </a>
+
+        </div>
+
+    </section>
+
+
     <!-- FOOTER -->
 
     <footer id="about">
 
         <div class="footer-inner">
 
-            <div class="footer-brand">
-                LearnHub
+            <div class="footer-main">
+
+                <div>
+
+                    <div class="footer-brand">
+                        LearnHub
+                    </div>
+
+                    <div class="footer-description">
+                        Educational resources for curious
+                        minds. Explore subjects, discover
+                        ideas, and learn something new.
+                    </div>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <h4>
+                        Explore
+                    </h4>
+
+                    <a href="#resources">
+                        Subjects
+                    </a>
+
+                    <a href="#paths">
+                        Learning Paths
+                    </a>
+
+                    <a href="#media">
+                        Learning Videos
+                    </a>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <h4>
+                        Learn
+                    </h4>
+
+                    <a href="#resources">
+                        Science
+                    </a>
+
+                    <a href="#resources">
+                        Technology
+                    </a>
+
+                    <a href="#resources">
+                        Geography
+                    </a>
+
+                    <a href="#resources">
+                        Study Skills
+                    </a>
+
+                </div>
+
             </div>
 
-            <div class="footer-text">
-                Educational resources for curious minds.
+
+            <div class="footer-bottom">
+
+                <span>
+                    © 2026 LearnHub
+                </span>
+
+                <span>
+                    Educational resources for curious minds.
+                </span>
+
             </div>
 
         </div>
@@ -1377,10 +2714,6 @@
         publicSite.style.display =
             "block";
 
-        /*
-         * Remove the secret fragment from
-         * the URL.
-         */
 
         history.replaceState(
             null,
@@ -1388,6 +2721,7 @@
             window.location.pathname +
             window.location.search
         );
+
 
         window.scrollTo(
             0,
